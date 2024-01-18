@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import Photo, Equipment, Photographer, Services
+from . models import Photo, Equipment, Photographer, Services, Tag
 # Register your models here.
 
 class PhotoAdmin(admin.ModelAdmin):
@@ -17,12 +17,30 @@ class ServicesAdmin(admin.ModelAdmin):
     list_filter = ('name', 'description' ,'price', 'duration')
     search_fields = ('name', 'duration')
 
-class RegisterAdmin(admin.ModelAdmin):
+
+class PhotoInline(admin.StackedInline):
+    model = Photo
+    extra = 1
+
+class EquipmentInline(admin.StackedInline):
+    model = Equipment
+    extra = 1
+
+class ServicesInline(admin.StackedInline):
+    model = Services
+    extra = 1
+
+
+class PhotographerAdmin(admin.ModelAdmin):
     list_display = ('name','age','address' ,'email' , 'phone_number', 'experience' , 'is_available')
     list_filter = ('name','age','address' ,'email' , 'phone_number', 'experience' , 'is_available')
     search_fields = ('name','age','address' ,'email' , 'phone_number', 'experience' , 'is_available')
+    
+    inlines = [PhotoInline, EquipmentInline, ServicesInline]
 
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(Services, ServicesAdmin)
-admin.site.register(Photographer, RegisterAdmin)
+admin.site.register(Photographer, PhotographerAdmin)
+
+admin.site.register(Tag)

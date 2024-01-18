@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Website, Developer
+from .models import Information, Developer
 # Register your models here.
 
 class WebsiteAdminModel(admin.ModelAdmin):
@@ -12,5 +12,5 @@ class DeveloperAdminModel(admin.ModelAdmin):
     list_filter = ('name','email',)
     search_fields = ('name','email',)
     
-admin.site.register(Website, WebsiteAdminModel)
+admin.site.register(Information, WebsiteAdminModel)
 admin.site.register(Developer, DeveloperAdminModel)

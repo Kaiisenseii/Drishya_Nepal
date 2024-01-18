@@ -1,4 +1,4 @@
-{%load static%}
+{% load static %}
 <!doctype html>
 <html class="no-js" lang="zxx">
 <head>
@@ -41,27 +41,15 @@
 
 <div class="left-side d-flex align-items-center">
 <div class="logo">
-<<<<<<< HEAD
-<a href="{% url "index" %}"><img height="100" width="300   " src="{% static 'img/logo/logo.png' %}" alt></a>
-=======
 <a href="{% url 'index' %}"><img height="75" width="275" src="{% static 'img/logo/logo.png' %}" alt></a>
->>>>>>> 647c3989c0765684217724b03eb80f2b57074600
 </div>
 
 <div class="main-menu d-none d-lg-block">
 <nav>
 <ul id="navigation">
 <li><a href="{% url 'index' %}">Home</a></li>
-<li><a href="{% url 'about' %}">About</a></li>
-<li><a href="{% url 'jobs' %}">Job</a></li>
-<li><a href="{% url 'blog' %}">Blog</a>
-<ul class="submenu">
-<li><a href="{% url 'blog' %}">Blog</a></li>
-<li><a href="{% url 'blog_details'%}">Blog Details</a></li>
-<li><a href="{% url 'elements' %}">Elements</a></li>
-</ul>
-</li>
-<li><a href="{%url 'contact'  %}">Contact</a></li>
+
+<li><a href="{% url 'photographers' %}">Photographers</a></li>
 </ul>
 </nav>
 </div>

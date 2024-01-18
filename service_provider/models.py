@@ -3,17 +3,28 @@ This models.py contains classes like Photographer, Photo, Equipment, Services
 '''
 from django.db import models
 
+
+class Tag(models.Model):
+    name = models.CharField(max_length=254) 
+    def __str__(self):
+        return str(self.name)
+
 class Photographer(models.Model):
     '''
     This class is for photographer details
     '''
+    
     name = models.CharField(max_length = 100)
     age = models.PositiveIntegerField()
     address = models.CharField(max_length = 254)
     email = models.EmailField()
     phone_number = models.CharField(max_length = 200)
     experience = models.CharField(max_length = 254)
+    tags = models.ManyToManyField(Tag   )
     is_available = models.BooleanField(default = True)
+    image = models.ImageField(upload_to="photographers", null="True")
+    is_videographer = models.BooleanField(default=False)
+
     
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
@@ -43,7 +54,7 @@ class Equipment(models.Model):
     photographer = models.ForeignKey(Photographer, on_delete=models.CASCADE)
     name = models.CharField(max_length = 100)
     description = models.CharField(max_length = 254)
-    photo = models.ImageField(upload_to = 'photographer/')
+    photo = models.ImageField(upload_to = 'equipment/')
     
     def __str__(self):
         return str(self.name)
