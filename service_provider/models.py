@@ -31,6 +31,7 @@ class Photo(models.Model):
     description = models.CharField(max_length = 254)
     type = models.CharField(max_length = 254)
     date_taken = models.DateField(null=True, blank=True)
+    photo = models.ImageField()
     
     def __str__(self):
         return str(self.name)

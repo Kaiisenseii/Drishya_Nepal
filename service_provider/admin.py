@@ -3,7 +3,7 @@ from . models import Photo, Equipment, Photographer, Services
 # Register your models here.
 
 class PhotoAdmin(admin.ModelAdmin):
-    list_display = ('name', 'location','description', 'type', 'date_taken')
+    list_display = ('name', 'location','description', 'type', 'date_taken', 'photo')
     list_filter = ('name', 'location', 'date_taken', 'type','date_taken',)
     search_fields = ('name', 'location', 'type',)
 
