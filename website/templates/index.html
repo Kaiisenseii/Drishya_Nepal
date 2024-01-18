@@ -13,7 +13,7 @@
 <div class="row">
 <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
 <div class="hero__caption">
-<h1>Searching for a Good Photographer? Find the <span>best Photographer</span><br> in this site to create your best memories</h1>
+<h1>Searching for a Good Photographer? Find the <span>Best Photographer</span><br> in this site to create your best memories</h1>
 </div>
 
 <form action="#" class="search-box">
@@ -71,13 +71,11 @@
 
 <nav>
 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-<a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">All Categories</a>
-<a class="nav-link" id="nav-two-tab" data-bs-toggle="tab" href="#nav-two" role="tab" aria-controls="nav-two" aria-selected="false">Creative & Art</a>
-<a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three" role="tab" aria-controls="nav-three" aria-selected="false">Programming & IT</a>
-<a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab" aria-controls="nav-four" aria-selected="false">Corporate</a>
-<a class="nav-link" id="nav-five-tab" data-bs-toggle="tab" href="#nav-five" role="tab" aria-controls="nav-five" aria-selected="false">Finance & Accounting</a>
-<a class="nav-link" id="nav-six-tab" data-bs-toggle="tab" href="#nav-six" role="tab" aria-controls="nav-six" aria-selected="false">Medical</a>
-<a class="nav-link" id="nav-seven-tab" data-bs-toggle="tab" href="#nav-seven" role="tab" aria-controls="nav-seven" aria-selected="false">Marketing</a>
+    {%for photo in photos%}
+<a class="nav-link active" id="nav-one-tab" data-bs-toggle="tab" href="#nav-one" role="tab" aria-controls="nav-one" aria-selected="true">
+    {{photo.type}}
+</a>
+{%endfor%}
 </div>
 </nav>
 
