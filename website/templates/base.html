@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Job Board</title>
+<title>Drishya Nepal</title>
 <meta name="description" content>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/icon/favicon.png' %}">
@@ -23,15 +23,15 @@
 <body>
 
 <div id="preloader-active">
-<div class="preloader d-flex align-items-center justify-content-center">
-<div class="preloader-inner position-relative">
-<div class="preloader-circle"></div>
-<div class="preloader-img pere-text">
-<img src="{% static 'img/icon/favicon.png' %}" alt="loder">
-</div>
-</div>
-</div>
-</div>
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'img/icon/favicon.png' %}" alt="loder">
+                </div>
+            </div>
+        </div>
+    </div>
 <header>
 <div class="header-area header-transparent">
 <div class="main-header ">
@@ -41,23 +41,23 @@
 
 <div class="left-side d-flex align-items-center">
 <div class="logo">
-<a href="index.html"><img src="{% static 'img/logo/logo.png' %}" alt></a>
+<a href="{% url "index" %}"><img height="100" width="300   " src="{% static 'img/logo/logo.png' %}" alt></a>
 </div>
 
 <div class="main-menu d-none d-lg-block">
 <nav>
 <ul id="navigation">
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="jobs.html">Job</a></li>
-<li><a href="blog.html">Blog</a>
+<li><a href="{% url "index" %}">Home</a></li>
+<li><a href="{% url "about" %}">About</a></li>
+<li><a href="{% url "jobs" %}">Job</a></li>
+<li><a href="{% url "blog" %}">Blog</a>
 <ul class="submenu">
-<li><a href="blog.html">Blog</a></li>
-<li><a href="blog_details.html">Blog Details</a></li>
-<li><a href="elements.html">Elements</a></li>
+<li><a href="{% url "blog" %}">Blog</a></li>
+<li><a href="{% url "blog_details" %}">Blog Details</a></li>
+<li><a href="{% url "elements" %}">Elements</a></li>
 </ul>
 </li>
-<li><a href="contact.html">Contact</a></li>
+<li><a href="{%url "contact"  %}">Contact</a></li>
 </ul>
 </nav>
 </div>
@@ -76,7 +76,7 @@
 </div>
 </header>
 
-{%block body%}"{% endblock body%}"
+{%block body%} {% endblock body%}
 
 <footer>
     <div class="footer-wrapper ">
@@ -196,7 +196,9 @@
     
         gtag('config', 'UA-23581568-13');
     </script>
+
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon="{&quot;rayId&quot;:&quot;650134a09b662254&quot;,&quot;version&quot;:&quot;2021.5.1&quot;,&quot;si&quot;:10}"></script>
     <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"846ecd92aed39e77","b":1,"version":"2023.10.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
-    </body>
-    </html>
+    {%block afterfooter%} {%endblock afterfooter%}
+   </body>
+   </html>
