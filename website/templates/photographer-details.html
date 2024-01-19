@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
+
 {% block body %}
 
 <main>
@@ -242,7 +243,7 @@
                     <a href="#">{{tag.name}}</a>
                   </li>
                  
-                  {% endfor %}
+                  {% endfor %}   
                 </ul>
               </aside>
               <aside class="single_sidebar_widget instagram_feeds">
@@ -250,63 +251,16 @@
                   Some clicks of {{photographer.name}}
                 </h4>
                 
+                    
+                
                 <ul class="instagram_row flex-wrap">
-                    {% for photo in photographers %}
+                    {% for image in photos  %}
                   <li>
-                    <a href="#">
-                        <img
-                          class="img-fluid"
-                          src="{{photo.photos.url}}"
-                          alt
-                        />
+                    <a href="{{ image.photo.url }}" data-lightbox = "models" data-title = "{{image.description}}">
+                        <img class="img-fluid" src="{{ image.photo.url }}" > 
                       </a>
                   </li>
                   {% endfor %}
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid    "
-                        src="{% static 'img/post/post_6.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_7.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_8.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_9.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_10.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
                 </ul>
               </aside>
              

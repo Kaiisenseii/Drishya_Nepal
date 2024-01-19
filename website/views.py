@@ -39,10 +39,12 @@ def photographer_details(request, id):
     photographer = Photographer.objects.get(id=id)
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
+    photos = Photo.objects.all().filter(photographer=photographer)
     context = {
         "photographer" : photographer, 
         "services" : services,
         'equipments' : equipments, 
+        'photos' : photos,
     }
     
     return render(request, 'photographer-details.html', context)
