@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Information, Developer
+from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services
 from management.models import Hire
 from client.models import Customer, Feedback
@@ -11,19 +11,21 @@ def home(request):
     developers = Developer.objects.all()
     photographers = Photographer.objects.all()
     photos = Photo.objects.all()
+    abouts = About.objects.all()
 
     context = {
         'info' : info,
         'developers' : developers,
         'photographers' : photographers,
         'photos' : photos,
+        'abouts' : abouts,
        
     }
     return render(request, 'index.html' , context)
 
 
 
-def photgraphers(request):
+def photographers(request):
     photographers = Photographer.objects.all()
     photos = Photo.objects.all()
 
@@ -48,3 +50,10 @@ def photographer_details(request, id):
     }
     
     return render(request, 'photographer-details.html', context)
+
+def about(request):
+    abouts = About.objects.all()
+    context = {
+        "abouts" : abouts,
+    }
+    return render(request, 'about.html', context)

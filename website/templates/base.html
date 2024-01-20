@@ -19,7 +19,7 @@
 <link rel="stylesheet" href="{% static 'css/slick.css' %}">
 <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<link rel="stylesheet" href ="{% static 'css/lightbox.css' %}">
+
 </head>
 <body>
 
@@ -49,14 +49,18 @@
 <nav>
 <ul id="navigation">
 <li><a href="{% url 'index' %}">Home</a></li>
-
+<li><a href="{% url 'about' %}">About</a></li>
 <li><a href="{% url 'photographers' %}">Photographers</a></li>
+
 </ul>
 </nav>
 </div>
 </div>
 <div class="header-right-btn f-right  ml-15">
-<a href="#" class="btn_1 header-btn">Join Now <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
+    <a href="#" class="btn_1 header-btn">Login <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
+    </div>
+<div class="header-right-btn f-right  ml-15">
+<a href="#" class="btn_1 header-btn">Join as professional <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
 </div>
 
 <div class="col-12">
@@ -178,7 +182,7 @@
     <script src="{% static 'js/jquery.validate.min.js' %}"></script>
     <script src="{% static 'js/mail-script.js' %}"></script>
     <script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
-    <script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
+    
     
     <script src="{% static 'js/plugins.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>

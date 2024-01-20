@@ -16,4 +16,11 @@ class Developer(models.Model):
     
     def __str__(self):
         return str(self.name)
+
+class About(models.Model):
+    name = models.CharField(max_length = 255)
+    description = models.CharField(max_length = 255)
+    photo = models.ImageField(upload_to= "about/")
     
+    def __str__(self):
+        return str(self.name)    
