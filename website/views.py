@@ -46,3 +46,6 @@ def photographer_details(request, id):
     }
     
     return render(request, 'photographer-details.html', context)
+
+def about(request):
+    return render(request, 'about.html')
