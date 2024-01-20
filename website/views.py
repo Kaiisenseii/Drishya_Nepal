@@ -57,3 +57,9 @@ def about(request):
         "abouts" : abouts,
     }
     return render(request, 'about.html', context)
+
+def login_user(request):
+    return render(request, 'login.html')
+
+def register_client(request):
+    return render(request, 'register-client.html')

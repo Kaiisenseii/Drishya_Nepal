@@ -13,7 +13,7 @@ class Photographer(models.Model):
     '''
     This class is for photographer details
     '''
-    
+    username = models.CharField(max_length = 100)
     name = models.CharField(max_length = 100)
     age = models.PositiveIntegerField()
     address = models.CharField(max_length = 254)

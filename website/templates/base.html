@@ -52,12 +52,13 @@
 <li><a href="{% url 'about' %}">About</a></li>
 <li><a href="{% url 'photographers' %}">Photographers</a></li>
 
+
 </ul>
 </nav>
 </div>
 </div>
 <div class="header-right-btn f-right  ml-15">
-    <a href="#" class="btn_1 header-btn">Login <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
+    <a href="{% url "login" %}" class="btn_1 header-btn">Login <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
     </div>
 <div class="header-right-btn f-right  ml-15">
 <a href="#" class="btn_1 header-btn">Join as professional <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
