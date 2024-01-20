@@ -27,7 +27,7 @@
                       <option value>{{photographer.address}}</option>
                       {%endfor%}
                     </select>
-                    <img src="{% static 'img/icon/flag.svg' %}" alt />
+                    {% comment %} <img src="{% static 'img/icon/flag.svg' %}" alt /> {% endcomment %}
                   </div>
                 </div>
                 <div class="search-form">
@@ -53,6 +53,9 @@
 
   {% include "photographers-section.html" %}
 
+  
+    {%include "about-section.html"%}
+{% comment %} 
   <section class="our-services section-padding section-bg1 fix">
     <div class="container">
       <div class="row position-relative">
@@ -68,8 +71,8 @@
             >
               <div class="section-tittle mb-70 services-padding">
                 <h2>
-                  We help companies<br />
-                  to find talents
+                  We help Customers<br />
+                  to find Photographers
                 </h2>
                 <p>
                   We collect reviews from our users so you can get an honest
@@ -131,7 +134,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </section> {% endcomment %}
 
   <section class="pricing-card-area section-bg section-padding">
     <div class="container">
