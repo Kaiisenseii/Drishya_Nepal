@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services
 from management.models import Hire
+from management.forms import HireForm
 from client.models import Customer, Feedback
 
 # Create your views here.
@@ -38,6 +39,19 @@ def photographers(request):
 
 
 def photographer_details(request, id):
+    
+    #for hire photgrapher
+    if request.method == "POST" and "hire_form" in request.POST :
+        print(request.POST)
+        form = HireForm(request.POST)
+        if form.is_valid():
+            form.save()
+            #send messages for success
+        else:
+            #send message to fornt end with errors
+            print(form.errors)
+        
+    
     photographer = Photographer.objects.get(id=id)
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
@@ -63,3 +77,6 @@ def login_user(request):
 
 def register_client(request):
     return render(request, 'register-client.html')
+
+def register_photographer(request):
+    return render(request, 'register-photographer.html')
