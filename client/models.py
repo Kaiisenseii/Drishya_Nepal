@@ -9,6 +9,7 @@ class Customer(models.Model):
     This class contains customer customer details
     '''
     photographer = models.ForeignKey(Photographer, on_delete=models.CASCADE)
+    username = models.CharField(max_length = 100)
     name = models.CharField(max_length = 100)
     age = models.PositiveIntegerField()
     email = models.EmailField()

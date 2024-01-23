@@ -1,8 +1,9 @@
+
 {% extends "base.html" %}
 {% load static %}
 
 {% block body %}
-
+<link rel="stylesheet" href ="{% static 'css/lightbox.css' %}">
 <main>
     <div class="slider-area">
       <div class="slider-height2 slider-bg2 d-flex align-items-end">
@@ -182,16 +183,93 @@
           <div class="col-lg-6">
             <div class="blog_right_sidebar">
               <aside class="single_sidebar_widget search_widget">
-                <form action="#">
+                
                   <div class="form-group m-0">
                     <div class="input-group">
                  
                       <div class="input-group-append d-flex">
-                        <button class="boxed-btn1" type="button">Hire Now.</button>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                          Hire Now
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Hire {{photographer.name}}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              
+                              <div class="modal-body">
+                                <form method="POST" action="#">
+                                  {% csrf_token %}
+                                  <div class="row">
+                                    <div class="col-12">
+                                      <div class="form-group">
+                                        <select name="service" class="form-control mb-2" required id="service">
+                                          <option value="" > ----Select Service---- </option>
+                                          {% for service  in services %}
+                                          <option value="{{service.id}}" > {{service.name}}- Rs. {{service.price}} - {{service.duration}}  </option>
+                                          {% endfor %}
+                                        </select>
+                                      </div>
+                                    </div>
+
+
+
+                                    <div class="col-12">
+                                      <div class="form-group">
+                                        <select name="location" class="form-control mb-2" required>
+                                          <option value="Kathmandu" > Kathmandu </option>
+                                          <option value="Pokhara" > Pokhara </option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <div class="form-group">
+                                        <input
+                                          class="form-control"
+                                          name="date"
+                                          id="date"
+                                          type="date"
+                                          placeholder="Choose Date"
+                                          required
+                                        />
+                                        <input type="hidden" name="photographer" value="{{photographer.id}}">
+                                        <input type="hidden" name="customer" value="2">
+                                      </div>
+                                    </div>
+                                    <div class="col-12">
+                                      <div class="form-group">
+                                        <textarea
+                                          class="form-control w-100"
+                                          name="description"
+                                          id="description"
+                                          cols="30"
+                                          rows="9"
+                                          placeholder="Note"
+                                          required
+                                        ></textarea>
+                                      </div>
+                                    </div>
+                                  </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" name="hire_form">Hire!!</button>
+                              </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </form>
+            
               </aside>
               <aside class="single_sidebar_widget post_category_widget">
                 <h4 class="widget_title" style="color: #2d2d2d">Services Provided by {{photographer.name}}</h4>
@@ -242,68 +320,24 @@
                     <a href="#">{{tag.name}}</a>
                   </li>
                  
-                  {% endfor %}
+                  {% endfor %}   
                 </ul>
               </aside>
               <aside class="single_sidebar_widget instagram_feeds">
                 <h4 class="widget_title" style="color: #2d2d2d">
-                  Instagram Feeds
+                  Some clicks of {{photographer.name}}
                 </h4>
+                
+                    
+                
                 <ul class="instagram_row flex-wrap">
+                    {% for image in photos  %}
                   <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_5.jpg' %}"
-                        alt
-                      />
-                    </a>
+                    <a href="{{ image.photo.url }}" data-lightbox = "models" data-title = "{{image.description}}">
+                        <img class="img-fluid" src="{{ image.photo.url }}" > 
+                      </a>
                   </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_6.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_7.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_8.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_9.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#">
-                      <img
-                        class="img-fluid"
-                        src="{% static 'img/post/post_10.jpg' %}"
-                        alt
-                      />
-                    </a>
-                  </li>
+                  {% endfor %}
                 </ul>
               </aside>
              
@@ -313,5 +347,13 @@
       </div>
     </section>
   </main>
+  <script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
+<script>
+$(document).ready(
+  function() {
+    
+  }
+)
+</script>
 
 {% endblock body %}
