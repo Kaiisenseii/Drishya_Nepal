@@ -80,3 +80,18 @@ def register_client(request):
 
 def register_photographer(request):
     return render(request, 'register-photographer.html')
+
+def photographer_details_update(request, id):
+    
+    photographer = Photographer.objects.get(id=id)
+    services = Services.objects.all().filter(photographer=photographer)
+    equipments = Equipment.objects.all().filter(photographer=photographer)
+    photos = Photo.objects.all().filter(photographer=photographer)
+    context = {
+        "photographer" : photographer, 
+        "services" : services,
+        'equipments' : equipments, 
+        'photos' : photos,
+    }
+    
+    return render(request, 'photographer-update.html', context)
