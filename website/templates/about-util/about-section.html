@@ -1,0 +1,34 @@
+<section class="our-services section-padding section-bg1 fix">
+    <div class="container">
+        <div class="row position-relative">
+            <div class="col-xxl-3 col-xl-3">
+                <div class="help-img"></div>
+            </div>
+            <div class="offset-lg-3 col-xxl-9 col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="offset-xl-5 offset-lg-5 offset-md-5 col-xl-6 col-lg-7 col-md-7">
+                        <div class="section-tittle mb-70 services-padding">
+                            <h2>We help <br> to find talents</h2>
+                            <p>We collect reviews from our users so you can get an honest opinion of what an experience
+                                with our website are really like!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="services-active dot-style">
+                    {%for about in abouts %}
+                    <div class="single-services mb-30 text-center">
+                        <div class="services-icon">
+                            <img width="150px" src="{{about.photo.url}}">
+                            <h4>{{about.name}}</h4>
+                        </div>
+                        <div class="services-cap">
+                            <p>{{about.description}}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

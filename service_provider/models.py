@@ -13,7 +13,7 @@ class Photographer(models.Model):
     '''
     This class is for photographer details
     '''
-    
+    username = models.CharField(max_length = 100)
     name = models.CharField(max_length = 100)
     age = models.PositiveIntegerField()
     address = models.CharField(max_length = 254)
@@ -70,5 +70,5 @@ class Services(models.Model):
     duration = models.CharField(max_length = 254)
     
     def __str__(self):
-        return str(self.name)
+        return f"{self.name} - Rs. {self.price} - {self.duration} days"
     
