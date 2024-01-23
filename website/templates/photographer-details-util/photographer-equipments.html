@@ -1,0 +1,23 @@
+{% load static %}
+
+<aside class="single_sidebar_widget popular_post_widget">
+    <h3 class="widget_title" style="color: #2d2d2d">
+        Equipments Available with {{photographer.name}}
+    </h3>
+    {% for equipment in equipments %}
+
+    <div class="media post_item">
+        <img src="{{equipment.photo.url}}" alt="{{equipment.name}}" width="100" height="100"/>
+        <div class="media-body">
+          <a href="#">
+            <h3 style="color: #2d2d2d">{{equipment.name}}</h3>
+          </a>
+          <p>
+            {{equipment.description}}
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+
+
+  </aside>
