@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+
+from service_provider.forms import EquipmentForm
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services
 from management.models import Hire
 from management.forms import HireForm
 from client.models import Customer, Feedback
+from .forms import ServiceForm
 
 # Create your views here.
 
@@ -83,6 +86,33 @@ def register_photographer(request):
 
 def photographer_details_update(request, id):
     
+    photographer= Photographer.objects.get(id=id)
+    
+    if request.method == "POST":
+        if "service_add_form" in request.POST:
+            # print(request.POST)
+            form = ServiceForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("photographer-update", photographer.id)
+    
+        if "update_service" in request.POST:
+            print(request.POST)
+            photographer = Photographer.objects.get(id=request.POST.get('photographer'))
+            service = Services.objects.get(id=request.POST.get('service'))
+            name = request.POST['name']
+            price = request.POST['price']
+            description = request.POST['description']
+            duration = request.POST['duration']
+            
+            service.name = name
+            service.price = price
+            service.description = description
+            service.duration = duration
+            service.save()
+            
+            
+    equipment_form = EquipmentForm()
     photographer = Photographer.objects.get(id=id)
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
@@ -92,6 +122,7 @@ def photographer_details_update(request, id):
         "services" : services,
         'equipments' : equipments, 
         'photos' : photos,
+        'equipment_form' : equipment_form,
     }
     
     return render(request, 'photographer-update.html', context)
