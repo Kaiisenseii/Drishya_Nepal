@@ -39,4 +39,9 @@ class About(models.Model):
 class Contact(models.Model):
     name = models.CharField(max_length=254)
     subject = models.CharField(max_length=256, default="No Subject ")
+    email = models.EmailField()
+    message = models.CharField(max_length = 254)
+    
+    def __str__(self):
+        return str(self.name)
     

@@ -125,7 +125,17 @@ def photographer_details_update(request, id):
                 return redirect("photographer-update", photographer.id)
         
         if "update_equipment" in request.POST:
-            print(request.POST)
+            print(request.POST, request.FILES)
+            photographer = Photographer.objects.get(id=request.POST.get('photographer'))
+            equipment = Equipment.objects.get(id=request.POST.FILES.get('equipment'))
+            name = request.POST['name']
+            description = request.POST['description']
+            photo = request.POST.FILES['photo']
+            
+            equipment.name = name
+            equipment.description = description
+            equipment.photo = photo
+            equipment.save()
             
         
         
