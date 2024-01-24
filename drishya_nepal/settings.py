@@ -39,13 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
     'client',
     'management',
     'service_provider',
     'website',
-    
+    'Authentication',
 ]
+
+AUTH_USER_MODEL = "Authentication.DrishyaNepalUser"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -268,7 +269,7 @@ JAZZMIN_SETTINGS = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    "changeform_format": "horizontal_tabs",
+    "changeform_format": "collapsible",
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     # Add a language dropdown into the admin
