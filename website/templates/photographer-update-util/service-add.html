@@ -1,98 +1,81 @@
 <aside class="single_sidebar_widget post_category_widget">
     <h4 class="widget_title" style="color: #2d2d2d">Services Provided by {{photographer.name}}</h4>
     <div class="input-group-append d-flex">
-        <button type="button" class="btn btn-success px-2" data-toggle="modal" data-target="#addService" style="font-size: 1rem; padding: 1.2rem">
-        <i class="fa fa-plus"></i> Services
+        <button type="button" class="btn btn-success px-2" data-toggle="modal" data-target="#addService"
+            style="font-size: 1rem; padding: 1.2rem">
+            <i class="fa fa-plus"></i> Services
         </button>
-       
+
     </div><br>
     <div class="accordion" id="accordionExample">
-            
+
         {% for service in services %}
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#service{{service.id}}" aria-expanded="true" aria-controls="collapseOne">
-                {{service.name}}
-            </button>
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#service{{service.id}}" aria-expanded="true" aria-controls="collapseOne">
+                    {{service.name}}
+                </button>
             </h2>
-            <div id="service{{service.id}}" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <div class="row">
-                    <div class="col-md-10 ">
-                        {{service.description  }}
+            <div id="service{{service.id}}" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-md-10 ">
+                            {{service.description }}
+                        </div>
+                        <div class="col-md-2 px-3 ">
+                            {% include "photographer-update-util/service-update.html" %}
+                            <br>
+                            <br>
+                            {% include "photographer-update-util/service-delete.html" %}
+                        </div>
                     </div>
-                    <div class="col-md-2 px-3 ">
-                        {% include "photographer-update-util/service-update.html" %}
-                        {% include "photographer-update-util/service-delete.html" %}     
-                    </div>
-                </div>
 
-            </div>
+                </div>
 
 
             </div>
         </div>
         {% endfor %}
-    <br>
-    <div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Add Service {{photographer.name}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
+        <br>
+        <div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Service {{photographer.name}}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
 
-                <div class="modal-body">
-                    <form method="POST" action="#">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-12">
-                        <div class="form-group">
-                            <input name="photographer" value="{{photographer.id}}" type="hidden">
-                                <input
-                                    class="form-control w-100"
-                                    name="name"
-                                    id="service.name"
-                                    type="text"
-                                    placeholder="Enter new service name"
-                                    required
-                                ><br>
-                                <input
-                                class="form-control w-100"
-                                name="price"
-                                id="price"
-                                type="text"
-                                placeholder="Enter service price"
-                                required
-                            ><br>
-                            <input
-                            class="form-control w-100"
-                            name="duration"
-                            id="duration"
-                            type="text"
-                            placeholder="Enter duration in Days"
-                            required
-                        ><br>
-                        <textarea
-                    class="form-control w-100"
-                    name="description"
-                    id="description"
-                    cols="30"
-                    rows="9"
-                    placeholder="Enter your service description"
-                    required
-                        ></textarea>
+                    <div class="modal-body">
+                        <form method="POST" action="#">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <input name="photographer" value="{{photographer.id}}" type="hidden">
+                                        <input class="form-control w-100" name="name" id="service.name" type="text"
+                                            placeholder="Enter new service name" required><br>
+                                        <input class="form-control w-100" name="price" id="price" type="text"
+                                            placeholder="Enter service price" required><br>
+                                        <input class="form-control w-100" name="duration" id="duration" type="text"
+                                            placeholder="Enter duration in Days" required><br>
+                                        <textarea class="form-control w-100" name="description" id="description"
+                                            cols="30" rows="9" placeholder="Enter your service description"
+                                            required></textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" name="service_add_form">Add Services</button>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-success" name="service_add_form">Add
+                                    Services</button>
                         </form>
-                        </div>
-                       
-                        </div>                                      
-                  
-    </aside>
+                    </div>
+
+                </div>
+
+</aside>

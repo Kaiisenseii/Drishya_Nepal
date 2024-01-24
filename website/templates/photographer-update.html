@@ -199,28 +199,8 @@
                 
                 </aside>
                 {% include "photographer-update-util/service-add.html" %}
-                {% include "photographer-update-util/equipment-add.html" %}                  
-                    
-                <aside class="single_sidebar_widget tag_cloud_widget">
-                    <h4 class="widget_title" style="color: #2d2d2d">Tag Clouds</h4>
-                    <div class="input-group-append d-flex">
-                        <button type="button" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 0.5rem;">
-                        Add Tags
-                        </button>
-                        <button type="button" class="btn btn-primary"style="margin-left: 20px;font-size: 1rem; padding: 1rem 0.5rem;" >
-                            Delete Tags
-                        </button>
-                    </div>
-                    <br>
-                    <ul class="list">
-                    {% for tag in photographer.tags.all %}
-                    <li>
-                        <a href="#">{{tag.name}}</a>
-                    </li>
-                    
-                    {% endfor %}   
-                    </ul>
-                </aside>
+                {% include "photographer-update-util/equipment-add.html" %} 
+                {% include "photographer-update-util/tages-update.html" %}
                 <aside class="single_sidebar_widget instagram_feeds">
                     <h4 class="widget_title" style="color: #2d2d2d">
                     Some clicks of {{photographer.name}}

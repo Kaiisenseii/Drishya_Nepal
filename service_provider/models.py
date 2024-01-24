@@ -2,27 +2,21 @@
 This models.py contains classes like Photographer, Photo, Equipment, Services
 '''
 from django.db import models
-
+from Authentication.models import DrishyaNepalUser
 
 class Tag(models.Model):
     name = models.CharField(max_length=254) 
+    
     def __str__(self):
         return str(self.name)
-
 class Photographer(models.Model):
     '''
     This class is for photographer details
     '''
-    username = models.CharField(max_length = 100)
-    name = models.CharField(max_length = 100)
-    age = models.PositiveIntegerField()
-    address = models.CharField(max_length = 254)
-    email = models.EmailField()
-    phone_number = models.CharField(max_length = 200)
+    user = models.OneToOneField(DrishyaNepalUser, on_delete=models.CASCADE)
     experience = models.CharField(max_length = 254)
-    tags = models.ManyToManyField(Tag   )
+    tags = models.ManyToManyField(Tag)
     is_available = models.BooleanField(default = True)
-    image = models.ImageField(upload_to="photographers", null="True")
     is_videographer = models.BooleanField(default=False)
 
     
@@ -30,8 +24,8 @@ class Photographer(models.Model):
     updated_at = models.DateTimeField(auto_now = True)
     
     def __str__(self):
-        return str(self.name)
-
+        return str(self.user.get_full_name())
+     
 class Photo(models.Model):
     '''
     This class is for the photos uploaded by photographers

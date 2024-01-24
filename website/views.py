@@ -2,7 +2,7 @@ from django.shortcuts import redirect, render
 
 from service_provider.forms import EquipmentForm
 from .models import Information, Developer, About
-from service_provider.models import Photographer, Photo, Equipment, Services
+from service_provider.models import Photographer, Photo, Equipment, Services, Tag
 from management.models import Hire
 from management.forms import HireForm
 from client.models import Customer, Feedback
@@ -75,22 +75,28 @@ def about(request):
     }
     return render(request, 'about.html', context)
 
-def login_user(request):
-    return render(request, 'login.html')
 
-def register_client(request):
-    return render(request, 'register-client.html')
-
-def register_photographer(request):
-    return render(request, 'register-photographer.html')
 
 def photographer_details_update(request, id):
     
     photographer= Photographer.objects.get(id=id)
     
+    if "addtag" in request.GET:
+        tag = Tag.objects.get(id=request.GET.get('addtag'))
+        photographer.tags.add(tag)
+        photographer.save()
+        return redirect("photographer-update", photographer.id)
+    
+    if "deletetag" in request.GET:
+        tag = Tag.objects.get(id=request.GET.get('deletetag'))
+        photographer.tags.remove(tag)
+        photographer.save()
+        return redirect("photographer-update", photographer.id)
+          
+    
     if request.method == "POST":
         if "service_add_form" in request.POST:
-            # print(request.POST)
+            print(request.POST)
             form = ServiceForm(request.POST)
             if form.is_valid():
                 form.save()
@@ -110,6 +116,26 @@ def photographer_details_update(request, id):
             service.description = description
             service.duration = duration
             service.save()
+        
+        if "equipment_add" in request.POST:
+            print(request.POST, request.FILES)
+            form = EquipmentForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect("photographer-update", photographer.id)
+        
+        if "update_equipment" in request.POST:
+            print(request.POST)
+            
+        
+        
+        if "tags_add" in request.POST:
+            photographer = Photographer.objects.get(id=id)
+            name = request.POST.getlist('tags ')[0]
+            tag= Tag.objects.get(name=name)
+            photographer.tags.add(tag)
+            photographer.save()
+            return redirect("photographer-update", photographer.id)
             
             
     equipment_form = EquipmentForm()
@@ -117,12 +143,22 @@ def photographer_details_update(request, id):
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
     photos = Photo.objects.all().filter(photographer=photographer)
+    tags = Tag.objects.all()
     context = {
         "photographer" : photographer, 
         "services" : services,
         'equipments' : equipments, 
         'photos' : photos,
         'equipment_form' : equipment_form,
+        'tags' : tags,
     }
     
     return render(request, 'photographer-update.html', context)
+
+
+def contact(request):
+    developers = Developer.objects.all()
+    context={
+        'developers': developers,
+    }
+    return render(request,"contact.html", context)
