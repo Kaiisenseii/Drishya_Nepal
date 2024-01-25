@@ -17,7 +17,10 @@
 
               <form action="#" class="search-box">
                 <div class="input-form">
-                  <input type="text" placeholder="Job Tittle or keyword" />
+                  <input
+                    type="text"
+                    placeholder="Photographer Title or keyword"
+                  />
                   <img src="{% static 'img/icon/pen.svg' %}" alt />
                 </div>
                 <div class="select-form">
@@ -42,7 +45,12 @@
                 data-delay=".4s"
                 style="animation-delay: 0.4s"
               >
-                <img height = "800px" width = "500px" src="{% static 'img/hero/hero-man.png' %}" alt />
+                <img
+                  height="700px"
+                  width="500px"
+                  src="{% static 'img/hero/hero-man.png' %}"
+                  alt
+                />
               </div>
             </div>
           </div>
@@ -51,11 +59,8 @@
     </div>
   </div>
 
-  {% include "photographers-section.html" %}
-
-  {% include "about-util/about-section.html" %}
-
-  {% comment %} {% include "about-extended.html" %} {% endcomment %}
-
-  </main>
+  {% include "photographers-section.html" %} {% include
+  "about-util/about-section.html" %} {% comment %} {% include
+  "about-extended.html" %} {% endcomment %}
+</main>
 {%endblock body%}

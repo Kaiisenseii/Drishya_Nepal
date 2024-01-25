@@ -154,10 +154,10 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Drishya Nepal",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "img/logo/logo.png",
+    "site_logo": "img/icon/favicon.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": "img/logo/logo.png",
+    "login_logo": "img/logo/logo2_footer.png",
 
     # Logo to use for login form in dark themes (defaults to login_logo)
     "login_logo_dark": None,
@@ -172,7 +172,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to the Drishya Nepal",
 
     # Copyright on the footer
-    "copyright": "Drishya Nepal",
+    "Copyright": "Drishya Nepal",
 
 
     # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
