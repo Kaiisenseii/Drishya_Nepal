@@ -1,0 +1,23 @@
+<aside class="single_sidebar_widget tag_cloud_widget">
+    <h4 class="widget_title" style="color: #2d2d2d">Tag Clouds</h4>
+    <div class="input-group-append d-flex">
+      <div class="dropdown">
+        <button type="button" class="btn btn-primary dropdown-toggle" style="font-size: 1rem; padding: 1rem 0.5rem;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-plus"></i> Add Tags
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" >
+          {% for tag in tags %}
+            <a href="{% url "photographer-update" photographer.id %}?addtag={{tag.id}}" class="dropdown-item" >{{tag.name}}</a>
+            {% endfor %}
+        </div>
+      </div>
+
+    </div>
+    <br>
+    <ul class="list">
+      {% for tag in photographer.tags.all %}    
+      <li>
+        <a href="{% url "photographer-update" photographer.id %}?deletetag={{tag.id}}" class="tag-remove" > {{tag.name}} <i class="fas fa-times delete-tag"></i></a> </li>
+      {% endfor %}
+    </ul>
+  </aside>

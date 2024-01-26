@@ -22,6 +22,8 @@ class Developer(models.Model):
     '''
     name = models.CharField(max_length = 100)
     email = models.EmailField()
+    address = models.CharField(max_length = 100)
+    phone_number = models.CharField(max_length = 100)
     
     def __str__(self):
         return str(self.name)
@@ -33,3 +35,8 @@ class About(models.Model):
     
     def __str__(self):
         return str(self.name)    
+    
+class Contact(models.Model):
+    name = models.CharField(max_length=254)
+    subject = models.CharField(max_length=256, default="No Subject ")
+    
