@@ -9,7 +9,7 @@
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
 					<span class="login100-form-title-1">
-						Log In
+						Password Reset
             <br>
             <a href = {% url "index" %}><img  width = "500px" src ="{% static "img/logo/logo.png" %}"></a>
 					</span>
@@ -17,37 +17,24 @@
 
 				<form class="login100-form validate-form" method="POST">
 					{% csrf_token %}
+                  
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Username</span>
-						<input class="input100" type="text" name="username" required placeholder="Enter username">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="text" name="username" required placeholder="Enter your registered email ">
 						<span class="focus-input100"></span>
 					</div>
 
-					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
-						<span class="label-input100">Password</span>
-						<input class="input100" type="password" name="password" required placeholder="Enter password">
-						<span class="focus-input100"></span>
-					</div>
-
-					<div class="flex-sb-m w-full p-b-30">
-						<div>
-							<a href="{% url "password-reset" %}" class="txt1">
-								Forgot Password?
-							</a>
-						</div>
-					</div>
+					
           <div class="container-login100-form-btn-group">
 					<div class="container-login100-form-btn">
 						<button type="submit" class="login100-form-btn">
-							Login
+							Submit
 						</button>
 					</div>
           
         </div>
         <br>
-        <div>
-        Don't have an account? <a href= "register-client"><font color = "blue" size = "5px"><u>Create Your Account</font></u></a>,it takes less than a minute.
-        </div>	
+        	
       </form>
 			</div>
 		</div>

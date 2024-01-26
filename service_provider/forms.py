@@ -8,5 +8,7 @@ class EquipmentForm(forms.ModelForm):
         model = Equipment
         fields = '__all__'
 
+
+
         
 
