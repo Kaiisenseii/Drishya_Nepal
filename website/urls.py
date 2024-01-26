@@ -9,6 +9,7 @@ urlpatterns = [
     path('photographer/<int:id>', views.photographer_details, name="photographer-detail"),
     path('photographer-update/<int:id>', views.photographer_details_update, name = 'photographer-update'),
     path('about', views.about, name = "about"),
-    path('contact', views.contact, name="contact")
+    path('contact', views.contact, name="contact"),
+    path('dashboard', views.dashboard, name="dashboard")
     
 ]

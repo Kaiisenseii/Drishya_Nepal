@@ -174,3 +174,6 @@ def contact(request):
             form.save()
         return redirect("contact")
     return render(request, 'contact.html')
+
+def dashboard(request):
+    return render (request, "dashboard.html")

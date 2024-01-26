@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 
 </head>
 
@@ -62,11 +63,22 @@
                             </div>
                             <div class="header-right-btn f-right  ml-15">
                                 {% if user.is_authenticated %}
-                                <a href="{% url "logout" %}" class="btn_1 header-btn">Logout <img
-                                        src="{% static 'img/icon/right-a.svg' %}" alt></a>
+                                <div class"dropdown">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" style="font-size: 1rem; padding: 1rem 0.5rem;" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Profile
+                                      </button>
+                                      <div class="dropdown-menu"  aria-labelledby="dropdownMenuLink">
+                                        <a class="dropdown-item" href="{% url "dashboard" %}" style="color: #007aff; font-weight: bold; text-align: center;" ><img style="width: 20px; height: 20px; margin-right: 30px;"   
+                                            src="{% static 'img/icon/profile.svg' %}" alt>Dashboard</a><br>
+                                        <a class="dropdown-item" href="#" style="color: #007aff; font-weight: bold; text-align: center;" ><img style="width: 20px; height: 20px; margin-right: 25px;"   
+                                            src="{% static 'img/icon/notification.svg' %}" alt>Notification</a><br>
+                                        <a href="{% url "logout" %}" class="dropdown-item" style="color: #007aff; font-weight: bold; "> <img style="width: 20px; height: 20px; margin-right: 55px;"  
+                                            src="{% static 'img/icon/exit.svg'%}" alt>Logout 
+                                            </a>
+                                        </div>
+                                    </div>
                                 {% else %}
-                                <a href="{% url "login" %}" class="btn_1 header-btn">Login <img
-                                        src="{% static 'img/icon/right-a.svg' %}" alt></a>
+                                <a href="{% url "login" %}" class="btn_1 header-btn">Login </a>
                                 {% endif %}
                             </div>
                             <div class="header-right-btn f-right  ml-15">
