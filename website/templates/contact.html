@@ -16,18 +16,21 @@
 
   <section class="contact-section">
     <div class="container">
+      {% include "message.html" %}
       <div class="row">
         <div class="col-12">
           <h2 class="contact-title">Get in Touch</h2>
         </div>
         <div class="col-lg-8">
-          <form
+          
+          <form 
             class="form-contact contact_form"
-            action="contact_process.php"
+            action="#"
             method="post"
             id="contactForm"
             novalidate="novalidate"
           >
+          {% csrf_token %}
             <div class="row">
               <div class="col-12">
                 <div class="form-group">
@@ -84,9 +87,10 @@
               </div>
             </div>
             <div class="form-group mt-3">
-              <button type="submit" class="button button-contactForm boxed-btn">
+              <button type="submit" class="button btn-success boxed-btn">
                 Send
               </button>
+             
             </div>
           </form>
         </div>
@@ -113,12 +117,7 @@
               <span class="contact-info__icon"><i class="ti-email"></i></span>
               <div class="media-body">
                   <h3>
-                      <a
-                      href="/cdn-cgi/l/email-protection"
-                      class="__cf_email__"
-                      data-cfemail="097a7c7979667b7d496a6665667b65606b276a6664"
-                      >[{{developer.email}}&#160;protected]</a
-                      >
+                      [{{developer.email}}
                     </h3>
                     <p>Send us your query anytime!</p>
                 </div>

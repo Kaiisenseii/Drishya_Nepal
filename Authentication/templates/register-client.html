@@ -1,0 +1,73 @@
+{% extends "base.html"%}
+{% load static%}
+{% block body%} 
+ <link rel = "stylesheet" href = "{% static "css/login.css" %}">
+ <link rel = "stylesheet" href = "{% static "css/login_util.css" %}">
+<section class="categories-area section-padding">
+  <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
+					<span class="login100-form-title-1">
+						Log In
+            <br>
+            <a href = {% url "index" %}><img  width = "500px" src ="{% static "img/logo/logo.png" %}"></a>
+					</span>
+				</div>
+				{% include "message.html" %}
+
+				<form class="login100-form validate-form" method="POST" enctype="multipart/form-data">
+					{% csrf_token %}
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="email" name="email" required placeholder="Enter email">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
+						<span class="label-input100">Password</span>
+						<input class="input100" type="password" name="password" required placeholder="Enter password">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">First Name</span>
+						<input class="input100" type="text" name="first_name" required placeholder="Enter First Name">
+						<span class="focus-input100"></span>
+					</div>
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Last Name</span>
+						<input class="input100" type="text" name="last_name" required placeholder="Enter Last Name">
+						<span class="focus-input100"></span>
+					</div>
+                   
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Address</span>
+						<input class="input100" type="text" name="address" required placeholder="Enter address">
+						<span class="focus-input100"></span>
+					</div>
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Phone Number</span>
+						<input class="input100" type="integer" name="phone_number" required placeholder="Enter Phone Number">
+						<span class="focus-input100"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Image is required">
+						<span class="label-input100">Profile Picture</span>
+						<input class="input100 form-control py-3" type="file" name="profile_picture" required accept="profile_picture/*">
+						<span class="focus-input100"></span>
+					</div>
+
+						
+          <div class="container-login100-form-btn-group">
+					<div class="container-login100-form-btn">
+						<button type="submit" class="login100-form-btn">
+							Register
+						</button>
+					</div>
+        </div>
+				</form>
+			</div>
+		</div>
+	</div>
+  </section>
+{% endblock body%}

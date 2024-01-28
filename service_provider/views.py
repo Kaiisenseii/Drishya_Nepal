@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Services, Photographer, Equipment, Tag
+from .models import Services, Photographer, Equipment, Tag, Photo
 # Create your views here.
 
 
@@ -9,7 +9,7 @@ def delete_service(request, id):
     service.delete()
     return redirect('photographer-update', photographer.id)
 
-def delete_equipment(requet, id):
+def delete_equipment(request, id):
     equipment = Equipment.objects.get(id=id)
     photographer = Photographer.objects.get(id=equipment.photographer.id)
     equipment.delete()
@@ -21,5 +21,11 @@ def tag_remove(request, id):
     photographer.tags.remove(tag)
     photographer.save()
     return redirect('photographer_detail', id=photographer.id)
+
+def photo_remove(request, id):
+    photo = Photo.objects.get(id=id)
+    photographer = Photographer.objects.get(id=photo.photographer.id)
+    photo.delete()
+    return redirect('photographer-update', photographer.id) 
     
     

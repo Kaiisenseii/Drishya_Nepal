@@ -1,12 +1,12 @@
 from django.shortcuts import redirect, render
-
+from django.contrib import messages
 from service_provider.forms import EquipmentForm
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services, Tag
 from management.models import Hire
 from management.forms import HireForm
 from client.models import Customer, Feedback
-from .forms import ServiceForm
+from .forms import ServiceForm, ContactForm
 
 # Create your views here.
 
@@ -126,7 +126,17 @@ def photographer_details_update(request, id):
                 return redirect("photographer-update", photographer.id)
         
         if "update_equipment" in request.POST:
-            print(request.POST)
+            print(request.POST, request.FILES)
+            photographer = Photographer.objects.get(id=request.POST.get('photographer'))
+            equipment = Equipment.objects.get(id=request.POST.FILES.get('equipment'))
+            name = request.POST['name']
+            description = request.POST['description']
+            photo = request.POST.FILES['photo']
+            
+            equipment.name = name
+            equipment.description = description
+            equipment.photo = photo
+            equipment.save()
             
         
         
@@ -157,8 +167,13 @@ def photographer_details_update(request, id):
     return render(request, 'photographer-update.html', context)
 
 def contact(request):
-    developers = Developer.objects.all()
-    context={
-        'developers': developers,
-    }
-    return render(request,"contact.html", context)
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            messages.success(request=request, message='Thanks for contacting us. We will reach you soon.')
+            form.save()
+        return redirect("contact")
+    return render(request, 'contact.html')
+
+def dashboard(request):
+    return render (request, "dashboard.html")

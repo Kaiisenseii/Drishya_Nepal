@@ -18,7 +18,7 @@ class Photographer(models.Model):
     tags = models.ManyToManyField(Tag)
     is_available = models.BooleanField(default = True)
     is_videographer = models.BooleanField(default=False)
-
+ 
     
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)

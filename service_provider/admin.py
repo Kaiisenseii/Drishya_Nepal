@@ -38,6 +38,8 @@ class PhotographerAdmin(admin.ModelAdmin):
     
     inlines = [PhotoInline, EquipmentInline, ServicesInline]
 
+
+
 admin.site.register(Photo, PhotoAdmin)
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(Services, ServicesAdmin)
