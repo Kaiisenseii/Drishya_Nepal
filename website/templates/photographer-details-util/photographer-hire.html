@@ -12,9 +12,11 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                   Hire Now
                 </button>
+                {% if is_owner %}
                 <button type="button" class="btn btn-primary">
                   <a href = "{% url "photographer-update" photographer.id %}">Update your details</a>  
                 </button>
+                {% endif %}
                 
 
                 <!-- Modal -->
@@ -22,7 +24,7 @@
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Hire {{photographer.name}}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Hire {{photographer.user.get_full_name}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>

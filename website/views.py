@@ -7,6 +7,7 @@ from management.models import Hire
 from management.forms import HireForm
 from client.models import Customer, Feedback
 from .forms import ServiceForm, ContactForm
+from Authentication.models import DrishyaNepalUser
 
 # Create your views here.
 
@@ -53,9 +54,20 @@ def photographer_details(request, id):
         else:
             #send message to fornt end with errors
             print(form.errors)
-        
+    is_owner = False
+    
     
     photographer = Photographer.objects.get(id=id)
+    
+    if request.user.is_authenticated:
+        user = DrishyaNepalUser.objects.get(id=request.user.id)
+        if int(user.id) == int(photographer.user.id):
+            is_owner = True 
+        else:
+            is_owner = False
+            
+            
+    print(is_owner)  
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
     photos = Photo.objects.all().filter(photographer=photographer)
@@ -64,6 +76,7 @@ def photographer_details(request, id):
         "services" : services,
         'equipments' : equipments, 
         'photos' : photos,
+        'is_owner': is_owner
     }
     
     return render(request, 'photographer-details.html', context)
@@ -80,6 +93,14 @@ def about(request):
 def photographer_details_update(request, id):
     
     photographer= Photographer.objects.get(id=id)
+    
+    if request.user.is_authenticated:
+        user = DrishyaNepalUser.objects.get(id=request.user.id)
+        if int(user.id) == int(photographer.user.id):
+            is_owner = True 
+        else:
+            is_owner = False
+            return redirect('/')
     
     if "addtag" in request.GET:
         tag = Tag.objects.get(id=request.GET.get('addtag'))
@@ -123,6 +144,8 @@ def photographer_details_update(request, id):
             if form.is_valid():
                 form.save()
                 return redirect("photographer-update", photographer.id)
+            else:
+                print(form.errors)
         
         if "update_equipment" in request.POST:
             print(request.POST, request.FILES)
@@ -176,4 +199,10 @@ def contact(request):
     return render(request, 'contact.html')
 
 def dashboard(request):
-    return render (request, "dashboard.html")
+    user = DrishyaNepalUser.objects.get(id=request.user.id)
+    
+    print(user)
+    context={
+        'user' : user,
+    }
+    return render (request, "dashboard.html", context)

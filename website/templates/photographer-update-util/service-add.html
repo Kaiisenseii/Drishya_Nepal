@@ -1,5 +1,5 @@
 <aside class="single_sidebar_widget post_category_widget">
-    <h4 class="widget_title" style="color: #2d2d2d">Services Provided by {{photographer.name}}</h4>
+    <h4 class="widget_title" style="color: #2d2d2d">Services Provided by {{photographer.user.get_full_name}}</h4>
     <div class="input-group-append d-flex">
         <button type="button" class="btn btn-success px-2" data-toggle="modal" data-target="#addService"
             style="font-size: 1rem; padding: 1.2rem">
@@ -44,7 +44,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Service {{photographer.name}}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Add Service {{photographer.user.get_full_name}}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

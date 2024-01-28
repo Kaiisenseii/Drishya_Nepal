@@ -1,6 +1,6 @@
 <aside class="single_sidebar_widget popular_post_widget">
     <h3 class="widget_title" style="color: #2d2d2d">
-        Equipments Available with {{photographer.name}}
+        Equipments Available with {{photographer.user.get_full_name}}
     </h3>
     <div class="input-group-append d-flex">
         <button type="button" class="btn btn-success px-2" data-toggle="modal" data-target="#addEquipment"
@@ -39,7 +39,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Equipment for {{photographer.name}}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add Equipment for {{photographer.user.get_full_name}}</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
