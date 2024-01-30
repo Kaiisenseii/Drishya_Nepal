@@ -34,7 +34,7 @@
                   </div>
                 </div>
                 <div class="search-form">
-                  <a href="#">Search Job</a>
+                  <a href="#">Search</a>
                 </div>
               </form>
             </div>
@@ -58,9 +58,35 @@
       </div>
     </div>
   </div>
+  
 
-  {% include "photographers-section.html" %} {% include
-  "about-util/about-section.html" %} {% comment %} {% include
-  "about-extended.html" %} {% endcomment %}
-</main>
+  {% include "photographers-section.html" %}
+
+  {% if user.photographer %}
+  <a href = "{% url "index" %}"></a>
+  {% else %}
+  <section class="wantToWork-area">
+    <div class="container">
+      <div class="wants-wrapper w-padding">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-xl-8 col-lg-9 col-md-8">
+            <div class="wantToWork-caption">
+              <h2>Do you want to be a Vendor? </h2>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-4">
+            <a href="{% url "register-photographer" %}" class="btn_02 w-btn wantToWork-btn f-right">Join as Professional</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  {% endif %}
+
+  {% include "about-util/about-section.html" %}
+
+  {% comment %} {% include "about-extended.html" %} {% endcomment %}
+
+  </main>
 {%endblock body%}

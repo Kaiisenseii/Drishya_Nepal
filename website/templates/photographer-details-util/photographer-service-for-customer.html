@@ -1,7 +1,7 @@
 {% load static %}
 
 <aside class="single_sidebar_widget post_category_widget">
-    <h4 class="widget_title" style="color: #2d2d2d">Services Provided by {{photographer.name}}</h4>
+    <h4 class="widget_title" style="color: #2d2d2d">Services Provided by {{photographer.user.get_full_name}}</h4>
     <div class="accordion" id="accordionExample">
         
         {% for service in services %}

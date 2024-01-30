@@ -1,12 +1,13 @@
 from django.shortcuts import redirect, render
-
+from django.contrib import messages
 from service_provider.forms import EquipmentForm
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services, Tag
 from management.models import Hire
 from management.forms import HireForm
 from client.models import Customer, Feedback
-from .forms import ServiceForm
+from .forms import ServiceForm, ContactForm
+from Authentication.models import DrishyaNepalUser
 
 # Create your views here.
 
@@ -53,9 +54,20 @@ def photographer_details(request, id):
         else:
             #send message to fornt end with errors
             print(form.errors)
-        
+    is_owner = False
+    
     
     photographer = Photographer.objects.get(id=id)
+    
+    if request.user.is_authenticated:
+        user = DrishyaNepalUser.objects.get(id=request.user.id)
+        if int(user.id) == int(photographer.user.id):
+            is_owner = True 
+        else:
+            is_owner = False
+            
+            
+    print(is_owner)  
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
     photos = Photo.objects.all().filter(photographer=photographer)
@@ -64,6 +76,7 @@ def photographer_details(request, id):
         "services" : services,
         'equipments' : equipments, 
         'photos' : photos,
+        'is_owner': is_owner
     }
     
     return render(request, 'photographer-details.html', context)
@@ -80,6 +93,14 @@ def about(request):
 def photographer_details_update(request, id):
     
     photographer= Photographer.objects.get(id=id)
+    
+    if request.user.is_authenticated:
+        user = DrishyaNepalUser.objects.get(id=request.user.id)
+        if int(user.id) == int(photographer.user.id):
+            is_owner = True 
+        else:
+            is_owner = False
+            return redirect('/')
     
     if "addtag" in request.GET:
         tag = Tag.objects.get(id=request.GET.get('addtag'))
@@ -123,6 +144,8 @@ def photographer_details_update(request, id):
             if form.is_valid():
                 form.save()
                 return redirect("photographer-update", photographer.id)
+            else:
+                print(form.errors)
         
         if "update_equipment" in request.POST:
             print(request.POST, request.FILES)
@@ -167,8 +190,19 @@ def photographer_details_update(request, id):
 
 
 def contact(request):
-    developers = Developer.objects.all()
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            messages.success(request=request, message='Thanks for contacting us. We will reach you soon.')
+            form.save()
+        return redirect("contact")
+    return render(request, 'contact.html')
+
+def dashboard(request):
+    user = DrishyaNepalUser.objects.get(id=request.user.id)
+    
+    print(user)
     context={
-        'developers': developers,
+        'user' : user,
     }
-    return render(request,"contact.html", context)
+    return render (request, "dashboard.html", context)

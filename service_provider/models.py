@@ -18,13 +18,13 @@ class Photographer(models.Model):
     tags = models.ManyToManyField(Tag)
     is_available = models.BooleanField(default = True)
     is_videographer = models.BooleanField(default=False)
-
+ 
     
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     
     def __str__(self):
-        return str(self.user.get_full_name())
+        return str(self.user)
      
 class Photo(models.Model):
     '''

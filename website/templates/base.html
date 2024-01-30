@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
 
 </head>
 
@@ -59,20 +60,37 @@
                                         </ul>
                                     </nav>
                                 </div>
+                                <div class="header-right-btn f-right  ml-20">
+                                    {% if user.is_authenticated %}
+                                    <div class"dropdown" style="margin-left: 50px;">
+                                        <button type="button" class="btn btn-primary dropdown-toggle" style="font-size: 1rem; padding: 1rem 0.5rem;" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            {{user.first_name}} Profile
+                                          </button>
+                                          <div class="dropdown-menu"  aria-labelledby="dropdownMenuLink">
+                                            <a class="dropdown-item" href="{% url "dashboard" %}" style="color: #007aff; font-weight: bold; text-align: center;" ><img style="width: 20px; height: 20px; margin-right: 25px;"   
+                                                src="{% static 'img/icon/profile.svg' %}" alt>Dashboard</a><br>
+                                            <a class="dropdown-item" href="#" style="color: #007aff; font-weight: bold; text-align: center;" ><img style="width: 20px; height: 20px; margin-right: 25px;"   
+                                                src="{% static 'img/icon/notification.svg' %}" alt>Notification</a><br>
+                                            <a href="{% url "logout" %}" class="dropdown-item" style="color: #007aff; font-weight: bold; "> <img style="width: 20px; height: 20px; margin-right: 25px;"  
+                                                src="{% static 'img/icon/exit.svg'%}" alt>Logout 
+                                                </a>
+                                            </div>  
+                                        </div>
+                                    {% else %}
+                                    <a href="{% url "login" %}" class="btn_1 header-btn">Login </a>
+                                    {% endif %}
+                                </div>
                             </div>
-                            <div class="header-right-btn f-right  ml-15">
-                                {% if user.is_authenticated %}
-                                <a href="{% url "logout" %}" class="btn_1 header-btn">Logout <img
-                                        src="{% static 'img/icon/right-a.svg' %}" alt></a>
-                                {% else %}
-                                <a href="{% url "login" %}" class="btn_1 header-btn">Login <img
-                                        src="{% static 'img/icon/right-a.svg' %}" alt></a>
-                                {% endif %}
-                            </div>
+                            
+                            {% if user.photographer %}
+                            <a href="{% url 'index' %}"></a>
+                            
+                            {% else %}
                             <div class="header-right-btn f-right  ml-15">
                                 <a href="{% url "register-photographer" %}" class="btn_1 header-btn">Join as
                                     professional <img src="{% static 'img/icon/right-a.svg' %}" alt></a>
-                            </div>
+                            </div>  
+                            {% endif %}
 
                             <div class="col-12">
                                 <div class="mobile_menu d-block d-lg-none"></div>
@@ -87,6 +105,23 @@
     {%block body%} {% endblock body%}
 
     <footer>
+        <div class="footer-wrapper ">
+            <div class="footer-area footer-padding">
+                <div class="container">
+                    <div class="row justify-content-between">
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8">
+                            <div class="single-footer-caption mb-50">
+
+                                
+                            </div>
+                        </div>
+                        
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
             <div class="footer-bottom-area">
                 <div class="container">
                     <div class="footer-border">
@@ -95,13 +130,14 @@
                                 <div class="footer-copy-right d-flex justify-content-between flex-wrap">
                                     <p>Copyright &copy;
                                         <script>document.write(new Date().getFullYear());</script> All rights reserved |
-                                        KRS Group
+                                        by Team Drishya Nepal 
                                     </p>
 
                                     <div class="footer-social">
-                                        <a href="#"><i class="fab fa-facebook"></i></a>
-                                        <a href="https://www.instagram.com/drishyanepal.official/"><i
-                                                class="fab fa-instagram"></i></a>
+                                        {% comment %} <a href="https://www.fb.com/sai4ull"><i class="fab fa-facebook"></i></a> {% endcomment %}
+                                        <a href="https://www.instagram.com/drishyanepal.official/"><i class="fab fa-instagram"></i></a>
+                                        {% comment %} <a href="#"><i class="fab fa-youtube"></i></a>
+                                        <a href="#"><i class="fab fa-linkedin-in"></i></a> {% endcomment %}
                                     </div>
                                 </div>
                             </div>
