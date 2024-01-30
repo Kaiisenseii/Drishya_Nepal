@@ -10,6 +10,6 @@ urlpatterns = [
     path('photographer-update/<int:id>', views.photographer_details_update, name = 'photographer-update'),
     path('about', views.about, name = "about"),
     path('contact', views.contact, name="contact"),
-    path('dashboard', views.dashboard, name="dashboard")
-    
+    path('dashboard', views.dashboard, name="dashboard"),
+    path('dashboard-edit', views.dashboard_edit, name="dashboard-edit"),
 ]

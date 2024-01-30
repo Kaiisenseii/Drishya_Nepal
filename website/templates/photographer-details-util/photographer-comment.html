@@ -1,6 +1,6 @@
 {% load static%}
 <div class="comments-area">
-    {% comment %} <h4>05 Comments</h4>
+    <h4>05 Comments</h4>
     <div class="comment-list">
       <div class="single-comment justify-content-between d-flex">
         <div class="user justify-content-between d-flex">
@@ -76,14 +76,14 @@
               </div>
               <div class="reply-btn">
                 <a href="#" class="btn-reply text-uppercase">reply</a>
-              </div> {% endcomment %}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="comment-form">
+  {% comment %} <div class="comment-form">
     <h4>Leave a Reply</h4>
     <form class="form-contact comment_form" action="#" id="commentForm">
       <div class="row">
@@ -143,4 +143,4 @@
       </div>
     </form>
   </div>
-</div>
+</div> {% endcomment %}

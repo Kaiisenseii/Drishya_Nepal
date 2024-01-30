@@ -40,7 +40,6 @@ def register_client(request):
         user = DrishyaNepalUser.objects.create(
             email=email,
             username=username,
-            
             first_name=first_name,
             last_name=last_name,
             phone=phone_number,
@@ -76,6 +75,30 @@ def register_photographer(request):
 
         if is_videographer is None:
             is_videographer = False
+            
+        #check if email exists and assign it to photographer
+        existing_user = DrishyaNepalUser.objects.filter(email=email)
+        
+        if existing_user.exists():
+            existing_user= existing_user.first()
+            existing_user.set_password(password)
+            existing_user.is_customer = False
+            existing_user.is_photographer = True
+            existing_user.save()
+            
+            photographer = Photographer.objects.create(
+                user=existing_user,
+                experience= experience,
+                is_videographer = is_videographer,
+            )
+            photographer.save()
+            #hya neri photpgrapher ko detail lera mathi ko user jasari save garne
+            login(request=request, user=existing_user)
+            messages.error(request=request, message='Registered Successfully.')
+            return redirect('index')
+            
+            
+            
         
         user = DrishyaNepalUser.objects.create(
             email=email,

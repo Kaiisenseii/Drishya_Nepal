@@ -137,6 +137,7 @@ def photographer_details_update(request, id):
             service.description = description
             service.duration = duration
             service.save()
+            return redirect("photographer-update", photographer.id)
         
         if "equipment_add" in request.POST:
             print(request.POST, request.FILES)
@@ -159,8 +160,17 @@ def photographer_details_update(request, id):
             equipment.description = description
             equipment.photo = photo
             equipment.save()
+            return redirect("photographer-update", photographer.id)
             
-        
+        if "update_profile_pic" in request.POST:
+            print(request.FILES)
+            photographer = Photographer.objects.get(id=request.POST.get('photographer'))
+            profile_pic = request.FILES['profile_pic']
+            photographer.user.profile_pic = profile_pic
+            photographer.save()
+            return redirect("photographer-update", photographer.id)
+            
+            
         
         if "tags_add" in request.POST:
             photographer = Photographer.objects.get(id=id)
@@ -206,3 +216,31 @@ def dashboard(request):
         'user' : user,
     }
     return render (request, "dashboard.html", context)
+
+def dashboard_edit(request):
+    user = DrishyaNepalUser.objects.get(id=request.user.id)
+    photographer = Photographer.objects.get(id=request.POST.get('photographer'))
+    if request.method == "POST":
+        print(request.POST, request.FILES)
+        if "update_profile" in request.POST:
+            profile_pic = request.FILES['profile_pic_edit']
+            user.profile_pic = profile_pic
+            user.save()
+            return redirect("dashboard")
+        
+        if "details_update"  in request.POST:
+            user.first_name = request.POST['f_name']
+            user.last_name = request.POST['l_name']
+            user.phone = request.POST['p_number']
+            user.address = request.POST['location']
+            user.email = request.POST['e_mail']
+            photographer.experience = request.POST['experience']
+            user.save()
+            photographer.save()
+            return redirect("dashboard")
+            
+    context = {
+        'user': user,
+    }
+    
+    return render (request, "dashboard-edit.html", context)

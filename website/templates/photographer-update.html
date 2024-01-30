@@ -28,6 +28,7 @@
               />
             </div>
           </div>
+        
 
         <div class="comments-area">
             {% comment %} <h4>05 Comments</h4> {% endcomment %}
@@ -180,13 +181,51 @@
               <div class="form-group m-0">
                 <div class="input-group">
                   <div class="input-group-append d-flex">
-                    <button type="button" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#updateProfile_pic">
                       Update Profile Picture
                     </button>
-                  </div>
                 </div>
-              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="updateProfile_pic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Profile Picture for {{photographer.user.get_full_name}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <input name="user" value="{{user.id}}" type="hidden">
+                                    
+                                    <input class="form-control w-100" name="photo" id="photo" type="file" accept="equipment/" 
+                                        placeholder="Enter Respective Equipment image" required><br>
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" name="update_profile_pic">Update Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
             </aside>
+        
             {% include "photographer-update-util/service-add.html" %}
              {% include "photographer-update-util/equipment-add.html" %}
              {% include "photographer-update-util/tages-update.html" %}
