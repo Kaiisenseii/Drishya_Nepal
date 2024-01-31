@@ -299,3 +299,6 @@ def hires(request):
         'hires': hires
     }
     return render(request, 'hires.html', context)
+
+def views_stars(request):
+    pass
