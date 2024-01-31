@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 
 
 # Register your models here.
-from .models import DrishyaNepalUser
+from .models import DrishyaNepalUser, Chat
 
 class DrishyaNepalUserAdmin(UserAdmin):
     fieldsets = (
@@ -16,5 +16,9 @@ class DrishyaNepalUserAdmin(UserAdmin):
             'user_permissions',
         )}),
     )
+    
+    list_filter = ['is_customer', 'is_photographer']
 
 admin.site.register(DrishyaNepalUser, DrishyaNepalUserAdmin)
+
+admin.site.register(Chat)

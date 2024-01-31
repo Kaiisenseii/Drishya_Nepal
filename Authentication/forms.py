@@ -1,9 +1,9 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
+from django import forms
+from .models import Chat
 
-User = get_user_model()
-
-class DrishyaNepalUserForm(DrishayNepalUser):
+class ChatForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ('email', 'first_name', 'last_name', 'address', 'phone', 'profile_pic')
+        model = Chat
+        fields = ("__all__")

@@ -7,6 +7,8 @@ from service_provider.models import Photographer
 # Create your views here.
 def login_user(request):
     
+    
+    
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == "POST":
@@ -17,6 +19,8 @@ def login_user(request):
         print(user)
         if user is not None:
             login(request=request, user=user)
+            if "next" in request.GET:
+                return redirect(request.GET['next'])
             return redirect("index")       
     return render(request, 'login.html')
 
@@ -108,7 +112,9 @@ def register_photographer(request):
             phone=phone_number,
             profile_pic=profile_pic,
             is_photographer = True,
-            address=address
+            address=address,
+            is_customer=False
+            
         )  
         if user:
             user.set_password(password)
@@ -128,6 +134,7 @@ def register_photographer(request):
             return redirect('register-photographer')
         
     return render(request, 'register-photographer.html')
+
 
 def password_forgot(request):
     return render(request, "forgot-pass.html")

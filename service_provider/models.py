@@ -13,7 +13,7 @@ class Photographer(models.Model):
     '''
     This class is for photographer details
     '''
-    user = models.OneToOneField(DrishyaNepalUser, on_delete=models.CASCADE)
+    user = models.OneToOneField(DrishyaNepalUser, on_delete=models.CASCADE, related_name="photographer")
     experience = models.CharField(max_length = 254)
     tags = models.ManyToManyField(Tag)
     is_available = models.BooleanField(default = True)
