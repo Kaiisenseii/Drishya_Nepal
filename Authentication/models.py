@@ -12,4 +12,3 @@ class DrishyaNepalUser(AbstractUser):
     is_photographer = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=True)
     
-    
