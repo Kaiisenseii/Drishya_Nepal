@@ -3,7 +3,7 @@ from django.contrib import messages
 from service_provider.forms import EquipmentForm
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services, Tag
-from management.models import Hire
+from management.models import Hire, Testimonial
 from management.forms import HireForm
 from client.models import Customer, Feedback
 from .forms import ServiceForm, ContactForm
@@ -19,6 +19,7 @@ def home(request):
     photographers = Photographer.objects.all()
     photos = Photo.objects.all()
     abouts = About.objects.all()
+    testimonials = Testimonial.objects.all()
 
     context = {
         'info' : info,
@@ -26,6 +27,7 @@ def home(request):
         'photographers' : photographers,
         'photos' : photos,
         'abouts' : abouts,
+        'testimonials' :  testimonials,
        
     }
     return render(request, 'index.html' , context)
@@ -33,12 +35,29 @@ def home(request):
 
 
 def photographers(request):
+    search_text = ""
+    location = ""
     photographers = Photographer.objects.all()
     photos = Photo.objects.all()
+    
+    # unique set of photographer.user.address
+    addresses = set([p.user.address for p in photographers])
+    
+    if request.GET.get('search'):
+        search_text = request.GET.get('search')
+        photographers = Photographer.objects.filter(Q(user__first_name__icontains=search_text) | Q(user__address__icontains=search_text))
+        
+    if request.GET.get('select'):
+        location = request.GET.get('select')
+        photographers = [p for p in photographers if p.user.address == location]
+        
 
     context = {
         'photographers' : photographers,
         'photos' : photos,
+        'search_text' : search_text,
+        'addresses' : addresses,
+        'location' : location,
        
     }
     return render(request, 'photographers.html' , context)

@@ -7,7 +7,7 @@
       >
         <div class="container position-relative">
           <div class="row">
-            <div class="col-xxl-6 col-xl-7 col-lg-8 col-md-10">
+            <div style="width: 70%">
               <div class="hero__caption">
                 <h1>
                   Searching for Good Photographer? Find the
@@ -15,34 +15,42 @@
                 </h1>
               </div>
 
-              <form action="#" class="search-box">
-                <div class="input-form">
-                  <input type="text" placeholder="Job Tittle or keyword" />
-                  <img src="{% static 'img/icon/pen.svg' %}" alt />
-                </div>
-                <div class="select-form">
-                  <div class="select-itms">
-                    <select name="select" id="select1">
-                      {% for photographer in photographers%}
-                      <option value>{{photographer.address}}</option>
-                      {%endfor%}
-                    </select>
-                    <img src="{% static 'img/icon/flag.svg' %}" alt />
+              <div class="container">
+                <div class="row mt-120 justify-content-left">
+                    <div class="col-lg-12">
+                      <form action="#" class="search-box">
+                        <div class="input-form">
+                          <input type="text" name="search" placeholder="Enter Photographer Name or Address" value="{% if search_text %} {{search_text}} {% endif %}" />
+                          <img src="{% static 'img/icon/pen.svg' %}" alt />
+                        </div>
+                        <div class="select-form">
+                          <div class="select-itms">
+                            <select name="select" id="select1"  >
+                              
+                              <option value="Enter location">Enter location</option> <!-- Default option -->
+                                            {% for address in addresses %}
+                                            <option value="{{address}}" {% if request.GET.select == address %}selected{% endif %}>{{address}}</option>
+                                            {% endfor %}
+                            </select>
+                            {% comment %} <i class="fa  fa-globe"></i> {% endcomment %}
+                          </div>
+                        </div>
+                        <div class="search-form">
+                          <button class="btn btn-primary mt-3" type="submit" href="#">Search Photographer</button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
-                </div>
-                <div class="search-form">
-                  <a href="#">Search Job</a>
-                </div>
-              </form>
+                </div> 
             </div>
-            <div class="col-xl-6 col-lg-5">
+            <div class="col-xl-12">
               <div
                 class="hero-man d-none d-lg-block f-right"
                 data-animation="bounceIn"
                 data-delay=".4s"
                 style="animation-delay: 0.4s"
               >
-                <img height = "700px" width = "500px" src="{% static 'img/hero/hero-man.png' %}" alt />
+                <img src="{% static 'img/hero/hero-man.png' %}" style="width:550px; margin-right: 100%" />
               </div>
             </div>
           </div>
@@ -53,7 +61,15 @@
   
 
   {% include "photographers-section.html" %}
-
+  <div class="container mb-3">
+    <div class="row">
+      <div class="col-xl-12">
+        <div class="find-more text-center mt-30">
+          <a href="{% url "photographers" %}" class="btn btn-primary">Find More <i class="ti-arrow-right"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>  
   {% if user.photographer %}
   <a href = "{% url "index" %}"></a>
   {% else %}
@@ -79,6 +95,6 @@
   {% include "about-util/about-section.html" %}
 
   {% comment %} {% include "about-extended.html" %} {% endcomment %}
-
+  {% include "about-util/testimonial.html"%}   
   </main>
 {%endblock body%}

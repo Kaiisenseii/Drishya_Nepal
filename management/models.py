@@ -18,3 +18,11 @@ class Hire(models.Model):
     
     def __str__(self):
         return str(self.location)
+    
+class Testimonial(models.Model):
+    '''
+    Model representing testimonials of advertisement in drishyanepal
+    '''
+    logo = models.ImageField(upload_to='testimonial/')
+    description = models.CharField(max_length = 254)
+    name = models.CharField(max_length=254)
