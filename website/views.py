@@ -12,11 +12,12 @@ from django.contrib.auth.decorators import login_required
 from Authentication.forms import ChatForm
 from django.db.models import Q
 # Create your views here.
+from client.forms import FeedBackForm
 
 def home(request):
     info = Information.objects.first()
     developers = Developer.objects.all()
-    photographers = Photographer.objects.all()
+    photographers = Photographer.objects.all()[:3]
     photos = Photo.objects.all()
     abouts = About.objects.all()
     testimonials = Testimonial.objects.all()
@@ -306,14 +307,24 @@ def chat(request, from_user, to_user):
     return render(request, "chat.html", context)
 
 def hires(request):
-    print(request.user.is_photographer)
+    if request.method == "POST":
+        if "rate" in request.POST:
+            feedback = FeedBackForm(request.POST)
+            print(request.POST)
+            if feedback.is_valid():
+                feedback.save()
+                messages.success(request=request,  message="Feedback Sent Successfully")
+                return redirect('hires')
+            else:
+                print(feedback.errors)
+    
     if request.user.is_customer:
         hires = Hire.objects.all().filter(customer=request.user)
-        print(hires)
     if request.user.is_photographer:
         print(request.user)
         hires = Hire.objects.all().filter(photographer=request.user)
-        # print(hires)
+    
+  
     context = {
         'hires': hires
     }

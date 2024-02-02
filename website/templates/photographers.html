@@ -9,12 +9,12 @@
         <div class="input-form">
           <input type="text" name="search" placeholder="Enter Photographer Name or Address" value="{% if search_text %} {{search_text}} {% endif %}" />
           <img src="{% static 'img/icon/pen.svg' %}" alt />
-        </div>
+        </div>  
         <div class="select-form">
           <div class="select-itms">
             <select name="select" id="select1"  >
               
-              <option value="Enter location">Enter location</option> <!-- Default option -->
+              <option value="" >Enter location</option> <!-- Default option -->
                             {% for address in addresses %}
                             <option value="{{address}}" {% if request.GET.select == address %}selected{% endif %}>{{address}}</option>
                             {% endfor %}

@@ -32,7 +32,7 @@ class ServicesInline(admin.StackedInline):
 
 
 class PhotographerAdmin(admin.ModelAdmin):
-    list_display = ( 'experience' , 'is_available')
+    list_display = ('user', 'experience' , 'is_available')
     list_filter = ( 'experience' , 'is_available')
     search_fields = ( 'experience' , 'is_available')
     

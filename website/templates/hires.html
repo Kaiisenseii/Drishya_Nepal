@@ -34,6 +34,7 @@
           <h4 class="text-right">Hires of {{user.get_full_name}}</h4>
         </div>
         <hr style="color: black;">
+        {% include "message.html" %}
         <div class="row mt-2" style="gap: 50px;">
           {% for hire in hires %}
 
@@ -53,48 +54,56 @@
                 <p>{{hire.service}}</p>
                 <p>Hired at {{hire.date}} </p>
 
-                <a href="{% url "chat" user.id hire.photographer.id %}" class="btn-success-sm float-left">
-                  <img src="{% static "img/icon/chat-icon.svg" %}" style="width:40px">
-                </a>
-                <div class="container d-flex justify-content-center mt-2">
-	
-
-                  <div class="row">
+                <div class="row">
+                  <a href="{% url "chat" user.id hire.photographer.id %}" class="m-1 col-md-5 btn btn-primary float-left">
+                    Message
+                  </a>
                   
-                    <div class="col-md-12">
+                    <!-- Button trigger modal -->
+                  {% if hire.has_feedback %}
+                  <button type="button" class="btn-danger col-md-6 m-1" disabled>
+                    Reviewed
+                    </button>
+                  {% else %}
                   
-                      <div class="stars">
-                    
-                        <form action="" method="POST">
-                      
-                            <input class="star star-5" id="star-5" type="radio" name="rating"/>
-                        
-                            <label class="star star-5" for="star-5"></label>
-                        
-                            <input class="star star-4" id="star-4" type="radio" name="rating"/>
-                        
-                            <label class="star star-4" for="star-4"></label>
-                        
-                            <input class="star star-3" id="star-3" type="radio" name="rating"/>
-                        
-                            <label class="star star-3" for="star-3"></label>
-                        
-                            <input class="star star-2" id="star-2" type="radio" name="rating"/>
-                        
-                            <label class="star star-2" for="star-2"></label>
-                        
-                            <input class="star star-1" id="star-1" type="radio" name="rating"/>
-                        
-                            <label class="star star-1" for="star-1"></label>
-                        
-                        </form>
-                      </div>
-                    </div>
-                    
-                  
+                  <button type="button" class="btn col-md-5 m-1" data-toggle="modal" data-target="#reviewModel{{hire.id}}">
+                    Review
+                    </button>
+                    {% endif %}
                   </div>
-                  
-                  </div>
+<!-- Modal -->
+<div class="modal fade" id="reviewModel{{hire.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{hire.photographer.get_full_name}}</h5>
+      
+        </button>
+      </div>
+      <div class="modal-body">
+                 <form method='POST'>   
+                  {% csrf_token %}
+                  <select class="form-control w-100" name="rating">
+                    <option value="1" selected>1 star</option>
+                    <option value="2" >2 star</option>
+                    <option value='3' >3 star</option>
+                    <option value="4" >4 star</option>
+                    <option value="5">5 star</option>
+                  </select>            
+                  <input type="hidden" name="customer" value="{{user.id}}" />
+                  <input type="hidden" name="photographer" value="{{hire.photographer.photographer.id}}" />
+                  <textarea rows="6" cols="30" name="message" class="form-control"></textarea><br/>
+               
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name="rate">Save changes</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
               </div>
             </div>
           </div>
