@@ -1,14 +1,16 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from service_provider.forms import EquipmentForm
+from service_provider.forms import EquipmentForm, PhotoForm
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services, Tag
 from management.models import Hire
 from management.forms import HireForm
 from client.models import Customer, Feedback
 from .forms import ServiceForm, ContactForm
-from Authentication.models import DrishyaNepalUser
-
+from Authentication.models import Chat, DrishyaNepalUser
+from django.contrib.auth.decorators import login_required
+from Authentication.forms import ChatForm
+from django.db.models import Q
 # Create your views here.
 
 def home(request):
@@ -17,6 +19,7 @@ def home(request):
     photographers = Photographer.objects.all()
     photos = Photo.objects.all()
     abouts = About.objects.all()
+    
 
     context = {
         'info' : info,
@@ -54,9 +57,8 @@ def photographer_details(request, id):
         else:
             #send message to fornt end with errors
             print(form.errors)
+            
     is_owner = False
-    
-    
     photographer = Photographer.objects.get(id=id)
     
     if request.user.is_authenticated:
@@ -169,9 +171,17 @@ def photographer_details_update(request, id):
             photographer.user.profile_pic = profile_pic
             photographer.save()
             return redirect("photographer-update", photographer.id)
-            
-            
-        
+
+        if "update_add_photo" in request.POST:
+            print(request.POST, request.FILES)
+            form = PhotoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect("photographer-update", photographer.id)
+            else:
+                print(form.errors)
+
+
         if "tags_add" in request.POST:
             photographer = Photographer.objects.get(id=id)
             name = request.POST.getlist('tags ')[0]
@@ -179,8 +189,7 @@ def photographer_details_update(request, id):
             photographer.tags.add(tag)
             photographer.save()
             return redirect("photographer-update", photographer.id)
-            
-            
+               
     equipment_form = EquipmentForm()
     photographer = Photographer.objects.get(id=id)
     services = Services.objects.all().filter(photographer=photographer)
@@ -217,30 +226,87 @@ def dashboard(request):
     }
     return render (request, "dashboard.html", context)
 
+@login_required
 def dashboard_edit(request):
     user = DrishyaNepalUser.objects.get(id=request.user.id)
-    photographer = Photographer.objects.get(id=request.POST.get('photographer'))
     if request.method == "POST":
-        print(request.POST, request.FILES)
         if "update_profile" in request.POST:
             profile_pic = request.FILES['profile_pic_edit']
             user.profile_pic = profile_pic
             user.save()
             return redirect("dashboard")
-        
-        if "details_update"  in request.POST:
-            user.first_name = request.POST['f_name']
-            user.last_name = request.POST['l_name']
-            user.phone = request.POST['p_number']
-            user.address = request.POST['location']
-            user.email = request.POST['e_mail']
-            photographer.experience = request.POST['experience']
-            user.save()
-            photographer.save()
-            return redirect("dashboard")
-            
-    context = {
-        'user': user,
-    }
+           
+    if user.is_photographer:
+        photographer = Photographer.objects.get(id=user.photographer.id)
+        if request.method == "POST":
+            print(request.POST) 
+            if "details_update"  in request.POST:
+                print(request.POST)
+                user.first_name = request.POST['f_name']
+                user.last_name = request.POST['l_name']
+                user.phone = request.POST['p_number']
+                user.address = request.POST['location']
+                user.email = request.POST['e_mail']
+                photographer.experience = request.POST['e_xperience']
+                user.save()
+                photographer.save()
+                return redirect("dashboard")
+    else:
+        if request.method == "POST":
+            if "details_update"  in request.POST:
+                user.first_name = request.POST['f_name']
+                user.last_name = request.POST['l_name']
+                user.phone = request.POST['p_number']
+                user.address = request.POST['location']
+                user.email = request.POST['e_mail']
+                user.save()
+                return redirect("dashboard")
+    return render (request, "dashboard-edit.html")
+
+
+def chat(request, from_user, to_user):
+    to_user_data = DrishyaNepalUser.objects.get(id=to_user)
+    from_user_data = DrishyaNepalUser.objects.get(id=from_user)
     
-    return render (request, "dashboard-edit.html", context)
+    if request.method == "POST":
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('chat',  from_user=from_user, to_user=to_user)
+        else:
+            print(form.errors)
+    
+    chats = Chat.objects.filter(
+        Q(from_user=from_user_data, to_user=to_user_data) | Q(from_user=to_user_data, to_user=from_user_data)
+    ).order_by('created_at')  # You may want to order the messages by creation time.
+
+    # Separate messages into 'to' and 'from' lists
+    to_user_chats = chats.filter(to_user=from_user_data)
+    from_user_chats = chats.filter(from_user=from_user_data)
+
+    context = {
+        'to_user': to_user_data,
+        'from_user': from_user_data,
+        'to_user_chats': to_user_chats,
+        'from_user_chats': from_user_chats,
+        'chats': chats,
+    }
+
+    return render(request, "chat.html", context)
+
+def hires(request):
+    print(request.user.is_photographer)
+    if request.user.is_customer:
+        hires = Hire.objects.all().filter(customer=request.user)
+        print(hires)
+    if request.user.is_photographer:
+        print(request.user)
+        hires = Hire.objects.all().filter(photographer=request.user)
+        # print(hires)
+    context = {
+        'hires': hires
+    }
+    return render(request, 'hires.html', context)
+
+def views_stars(request):
+    pass

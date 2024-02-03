@@ -27,7 +27,7 @@
                   <div class="select-itms">
                     <select name="select" id="select1">
                       {% for photographer in photographers%}
-                      <option value>{{photographer.address}}</option>
+                      <option value>{{photographer.user.address}}</option>
                       {%endfor%}
                     </select>
                     <img src="{% static 'img/icon/flag.svg' %}" alt />
@@ -85,6 +85,8 @@
   {% endif %}
 
   {% include "about-util/about-section.html" %}
+
+  {% include "testimonials.html" %}
 
   {% comment %} {% include "about-extended.html" %} {% endcomment %}
 

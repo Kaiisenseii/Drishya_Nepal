@@ -21,16 +21,12 @@
         <div class="col-lg-6 posts-list">
           <div class="single-post">
             <div class="feature-img">
-              <img
-                class="img-fluid"
-                src="{{photographer.user.profile_pic.url}}"
-                alt
-              />
+              <img class="img-fluid" src="{{photographer.user.profile_pic.url}}" alt />
             </div>
           </div>
-        
 
-        <div class="comments-area">
+
+          <div class="comments-area">
             {% comment %} <h4>05 Comments</h4> {% endcomment %}
             {% comment %} <div class="comment-list">
               <div class="single-comment justify-content-between d-flex">
@@ -113,62 +109,35 @@
                 </div>
               </div>
             </div> {% endcomment %}
-          </div> 
+          </div>
           <div class="comment-form">
             <h4>Leave a Reply</h4>
             <form class="form-contact comment_form" action="#" id="commentForm">
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                    <textarea
-                      class="form-control w-100"
-                      name="comment"
-                      id="comment"
-                      cols="30"
-                      rows="9"
-                      placeholder="Write Comment"
-                    ></textarea>
+                    <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
+                      placeholder="Write Comment"></textarea>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      class="form-control"
-                      name="name"
-                      id="name"
-                      type="text"
-                      placeholder="Name"
-                    />
+                    <input class="form-control" name="name" id="name" type="text" placeholder="Name" />
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <div class="form-group">
-                    <input
-                      class="form-control"
-                      name="email"
-                      id="email"
-                      type="email"
-                      placeholder="Email"
-                    />
+                    <input class="form-control" name="email" id="email" type="email" placeholder="Email" />
                   </div>
                 </div>
                 <div class="col-12">
                   <div class="form-group">
-                    <input
-                      class="form-control"
-                      name="website"
-                      id="website"
-                      type="text"
-                      placeholder="Website"
-                    />
+                    <input class="form-control" name="website" id="website" type="text" placeholder="Website" />
                   </div>
                 </div>
               </div>
               <div class="form-group">
-                <button
-                  type="submit"
-                  class="button button-contactForm btn_1 boxed-btn"
-                >
+                <button type="submit" class="button button-contactForm btn_1 boxed-btn">
                   Post Comment
                 </button>
               </div>
@@ -184,85 +153,120 @@
                     <button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#updateProfile_pic">
                       Update Profile Picture
                     </button>
+                  </div>
                 </div>
-            </div>
-        </div>
-        <div class="modal fade" id="updateProfile_pic" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Change Profile Picture for {{photographer.user.get_full_name}}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              </div>
+              <div class="modal fade" id="updateProfile_pic" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Change Profile Picture for
+                        {{photographer.user.get_full_name}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+                      </button>
+                    </div>
 
-                <div class="modal-body">
-                    <form method="POST" enctype="multipart/form-data">
+                    <div class="modal-body">
+                      <form method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <div class="row">
-                            <div class="col-12">
-                                <div class="form-group">
-                                    <input name="user" value="{{user.id}}" type="hidden">
-                                    
-                                    <input class="form-control w-100" name="photo" id="photo" type="file" accept="equipment/" 
-                                        placeholder="Enter Respective Equipment image" required><br>
-                                    
-                                </div>
+                          <div class="col-12">
+                            <div class="form-group">
+                              <input name="user" value="{{user.id}}" type="hidden">
+
+                              <input class="form-control w-100" name="photo" id="photo" type="file" accept="equipment/"
+                                placeholder="Enter Respective Equipment image" required><br>
+
                             </div>
+                          </div>
 
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-success" name="update_profile_pic">Update Changes</button>
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success" name="update_profile_pic">Update Changes</button>
                         </div>
-                    </form>
-                </div>
+                      </form>
+                    </div>
 
-            </div>
-        </div>
-    </div>
+                  </div>
+                </div>
+              </div>
 
             </aside>
-        
+
             {% include "photographer-update-util/service-add.html" %}
-             {% include "photographer-update-util/equipment-add.html" %}
-             {% include "photographer-update-util/tages-update.html" %}
+            {% include "photographer-update-util/equipment-add.html" %}
+            {% include "photographer-update-util/tages-update.html" %}
             <aside class="single_sidebar_widget instagram_feeds">
               <h4 class="widget_title" style="color: #2d2d2d">
                 Some clicks of {{photographer.user.get_full_name}}
               </h4>
               <div class="input-group-append d-flex">
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  style="font-size: 1rem; padding: 1rem 0.5rem"
-                >
+                <button type="button" class="btn btn-primary" style="font-size: 1rem; padding: 1rem 0.5rem" data-toggle="modal" data-target="#update_add_photo">
                   Add Photo
                 </button>
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  style="
+                <button type="button" class="btn btn-primary" style="
                     margin-left: 20px;
                     font-size: 1rem;
                     padding: 1rem 0.5rem;
-                  "
-                >
+                  ">
                   Delete Photo
                 </button>
+              </div>
+              <div class="modal fade" id="update_add_photo" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Add photos for
+                        {{photographer.user.get_full_name}}</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <div class="modal-body">
+                      <form method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row">
+                          <div class="col-12">
+                            <div class="form-group">
+                              <input name="user" value="{{user.id}}" type="hidden">
+                                <input class="form-control w-100" name="photo" id="photo" type="file" accept="photo/" required>
+                                <br>
+                                <input class="form-control w-100" name="name" id="name" type="text" placeholder="Enter your photo name" required>
+                                {{photo.name}}
+                                </input>
+                                <br>
+                                <input class="form-control w-100" name="location" id="location" type="text" placeholder="Enter your photo location" required>
+                                {{photo.name}}
+                                </input>
+                                <br>
+                                <textarea class="form-control w-100" name="description" id="description" cols="30" rows="9" placeholder="Enter your photo description" required>
+                                {{photo.description}}
+                                </textarea>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-success" name="update_add_photo">Add</button>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
               </div>
               <br />
 
               <ul class="instagram_row flex-wrap">
                 {% for image in photos %}
                 <li>
-                  <a
-                    href="{{ image.photo.url }}"
-                    data-lightbox="models"
-                    data-title="{{image.description}}"
-                  >
+                  <a href="{{ image.photo.url }}" data-lightbox="models" data-title="{{image.description}}">
                     <img class="img-fluid" src="{{ image.photo.url }}" />
                   </a>
                 </li>
@@ -277,7 +281,7 @@
 </main>
 <script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
 <script>
-  $(document).ready(function () {});
+  $(document).ready(function () { });
 </script>
 
 {% endblock body %}

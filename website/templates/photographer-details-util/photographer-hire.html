@@ -9,14 +9,19 @@
          
               <div class="input-group-append d-flex">
                 <!-- Button trigger modal -->
+                {% if user.is_authenticated %}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                   Hire Now
                 </button>
+                {% endif %}
                 {% if is_owner %}
                 <button type="button" class="btn btn-primary">
                   <a href = "{% url "photographer-update" photographer.id %}">Update your details</a>  
                 </button>
                 {% endif %}
+                <button type="button" class="btn btn-primary">
+                  <a href = "{% url "chat" user.id photographer.user.id %}">Chat with your Professional</a>  
+                </button>
                 
 
                 <!-- Modal -->
@@ -65,8 +70,8 @@
                                   placeholder="Choose Date"
                                   required
                                 />
-                                <input type="hidden" name="photographer" value="{{photographer.id}}">
-                                <input type="hidden" name="customer" value="2">
+                                <input type="hidden" name="photographer" value="{{photographer.user.id}}">
+                                <input type="hidden" name="customer" value="{{user.id}}">
                               </div>
                             </div>
                             <div class="col-12">

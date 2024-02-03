@@ -12,3 +12,15 @@ class DrishyaNepalUser(AbstractUser):
     is_photographer = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=True)
     
+    
+class Chat(models.Model):
+    """A chat between two or more users."""
+    to_user = models.ForeignKey(DrishyaNepalUser, on_delete=models.CASCADE, related_name="to_user")
+    from_user = models.ForeignKey(DrishyaNepalUser, on_delete=models.CASCADE, related_name="from_user")
+    
+    message = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    
+    def __str__(self):
+        return "From " + str(self.from_user.get_full_name()) + "To " + str(self.to_user.get_full_name())

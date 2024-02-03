@@ -15,7 +15,9 @@ def login_user(request):
         print(user)
         if user is not None:
             login(request=request, user=user)
-            return redirect("index")
+            if "next" in request.GET:
+                return redirect(request.GET['next'])
+            return redirect("index")       
     return render(request, 'login.html')
 
 def logout_user(request):
@@ -93,10 +95,7 @@ def register_photographer(request):
             login(request=request, user=existing_user)
             messages.error(request=request, message='Registered Successfully.')
             return redirect('index')
-            
-            
-            
-        
+
         user = DrishyaNepalUser.objects.create(
             email=email,
             username=username,
@@ -105,7 +104,9 @@ def register_photographer(request):
             phone=phone_number,
             profile_pic=profile_pic,
             is_photographer = True,
-            address=address
+            address=address,
+            is_customer=False
+            
         )
         if user:
             user.set_password(password)
@@ -124,7 +125,8 @@ def register_photographer(request):
             messages.error(request=request, message='Something Went Wrong')
             return redirect('register-photographer')
             
-        return render(request, 'register-photographer.html')
+    return render(request, 'register-photographer.html')
+
 
 def password_forgot(request):
     return render(request, "forgot-pass.html")
