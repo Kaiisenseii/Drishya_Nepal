@@ -88,16 +88,17 @@ def photographer_details(request, id):
             is_owner = False
             
             
-    print(is_owner)  
     services = Services.objects.all().filter(photographer=photographer)
     equipments = Equipment.objects.all().filter(photographer=photographer)
     photos = Photo.objects.all().filter(photographer=photographer)
+    reviews = Feedback.objects.all().filter(photographer=photographer)
     context = {
         "photographer" : photographer, 
         "services" : services,
         'equipments' : equipments, 
         'photos' : photos,
-        'is_owner': is_owner
+        'is_owner': is_owner,
+        'reviews' : reviews,
     }
     
     return render(request, 'photographer-details.html', context)

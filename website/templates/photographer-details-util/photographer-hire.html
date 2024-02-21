@@ -37,6 +37,7 @@
                       
                       <div class="modal-body">
                         <form method="POST" action="#">
+                          <input name="status" value="Pending" type="hidden">
                           {% csrf_token %}
                           <div class="row">
                             <div class="col-12">

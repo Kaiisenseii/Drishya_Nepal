@@ -3,6 +3,7 @@ This models.py contains classes like Photographer, Photo, Equipment, Services
 '''
 from django.db import models
 from Authentication.models import DrishyaNepalUser
+from client.models import Feedback
 
 class Tag(models.Model):
     name = models.CharField(max_length=254) 
@@ -25,7 +26,16 @@ class Photographer(models.Model):
     
     def __str__(self):
         return str(self.user.get_full_name())
-     
+    
+    def get_avg_rating_html(self):
+        ratings = Feedback.objects.all().filter(photographer=self)
+        summation = 0
+        for rate in ratings:
+            summation += rate.rating
+        average = summation / ratings.count() if ratings.count() > 0 else 0
+        return "<i class='text-warning mr-2 fa fa-star  '></i>" * int(average) + "<i class='text-warning mr-1  far fa-star '></i>" * (5- int(average))
+    
+    
 class Photo(models.Model):
     '''
     This class is for the photos uploaded by photographers

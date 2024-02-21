@@ -24,7 +24,7 @@ class Hire(models.Model):
     customer = models.ForeignKey(DrishyaNepalUser, on_delete=models.CASCADE, related_name="customer")
     location = models.CharField(max_length = 200)
     date = models.DateField()
-    status = models.CharField(max_length=100, choices=STATUS_CHOICES)
+    status = models.CharField(max_length=100, choices=STATUS_CHOICES, default="Pending")
     #PRICE KO LAGI SERVICE NAME NAI LEKHEKO
     service = models.ForeignKey(Services, on_delete  = models.CASCADE)
     description = models.CharField(max_length = 200)
