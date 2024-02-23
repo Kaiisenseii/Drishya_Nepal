@@ -16,7 +16,6 @@ from client.forms import FeedBackForm
 
 def home(request):
     info = Information.objects.first()
-    developers = Developer.objects.all()
     photographers = Photographer.objects.all()[:3]
     photos = Photo.objects.all()
     abouts = About.objects.all()
@@ -24,12 +23,10 @@ def home(request):
 
     context = {
         'info' : info,
-        'developers' : developers,
         'photographers' : photographers,
         'photos' : photos,
         'abouts' : abouts,
         'testimonials' :  testimonials,
-       
     }
     return render(request, 'index.html' , context)
 
@@ -135,7 +132,7 @@ def photographer_details_update(request, id):
         photographer.tags.remove(tag)
         photographer.save()
         return redirect("photographer-update", photographer.id)
-          
+
     
     if request.method == "POST":
         if "service_add_form" in request.POST:
@@ -222,13 +219,17 @@ def photographer_details_update(request, id):
 
 
 def contact(request):
+    developers = Developer.objects.all()
+    context = {
+        'developers' : developers,
+    }
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
             messages.success(request=request, message='Thanks for contacting us. We will reach you soon.')
             form.save()
         return redirect("contact")
-    return render(request, 'contact.html')
+    return render(request, 'contact.html', context)
 
 def dashboard(request):
     user = DrishyaNepalUser.objects.get(id=request.user.id)
@@ -248,7 +249,7 @@ def dashboard_edit(request):
             user.profile_pic = profile_pic
             user.save()
             return redirect("dashboard")
-           
+
     if user.is_photographer:
         photographer = Photographer.objects.get(id=user.photographer.id)
         if request.method == "POST":
@@ -331,5 +332,3 @@ def hires(request):
     }
     return render(request, 'hires.html', context)
 
-def views_stars(request):
-    pass

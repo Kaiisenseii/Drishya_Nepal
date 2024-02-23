@@ -18,11 +18,10 @@
             <div class="single-cat mb-30">
               <div class="cat-cap">
 
-                {% for tag in photographer.tags.all %}
+                {% for tag in photographer.tags.all|slice:":3" %}
                 <span class="colors1"> {{tag}} </span>
                 {% endfor %}
-                 
-           
+
                 
                 <h5>
                   <a href="{% url "photographer-detail" photographer.id %}"

@@ -9,19 +9,19 @@
          
               <div class="input-group-append d-flex">
                 <!-- Button trigger modal -->
-                {% if user.is_authenticated %}
+                {% if user.is_customer %}
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                   Hire Now
                 </button>
                 {% endif %}
+
+                
                 {% if is_owner %}
                 <button type="button" class="btn btn-primary">
                   <a href = "{% url "photographer-update" photographer.id %}">Update your details</a>  
                 </button>
                 {% endif %}
-                <button type="button" class="btn btn-primary">
-                  <a href = "{% url "chat" user.id photographer.user.id %}">Chat with your Professional</a>  
-                </button>
+              
                 
 
                 <!-- Modal -->
@@ -58,6 +58,9 @@
                                 <select name="location" class="form-control mb-2" required>
                                   <option value="Kathmandu" > Kathmandu </option>
                                   <option value="Pokhara" > Pokhara </option>
+                                  <option value="Biratnagar" > Biratnagar </option>
+                                  <option value="Bhaktapur" > Bhaktapur </option>
+                                  <option value="Lalitpur" > Lalitpur </option>
                                 </select>
                               </div>
                             </div>

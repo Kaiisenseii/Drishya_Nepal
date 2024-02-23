@@ -15,9 +15,9 @@
     </div>
     <br>
     <ul class="list">
-      {% for tag in photographer.tags.all %}    
+      {% for tag in photographer.tags.all %}   
       <li>
-        <a href="{% url "photographer-update" photographer.id %}?deletetag={{tag.id}}" class="tag-remove" > {{tag.name}} <i class="fas fa-times delete-tag"></i></a> </li>
+        <a href="{% url "photographer-update" photographer.id %}?deletetag={{tag.id}}" class="tag-remove" style="color: black;"> {{tag.name}} <i class="fas fa-times delete-tag"></i></a> </li>
       {% endfor %}
     </ul>
   </aside>

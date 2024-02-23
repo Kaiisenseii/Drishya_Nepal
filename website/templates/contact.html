@@ -90,7 +90,6 @@
               <button type="submit" class="button btn-success boxed-btn">
                 Send
               </button>
-             
             </div>
           </form>
         </div>
@@ -98,7 +97,7 @@
         {% for developer in developers %}
         <div class="col-lg-3 offset-lg-1">
             <div class="media contact-info">
-                <span class="contact-info__icon"><i class="ti-home"></i></span>
+                <span class="contact-info__icon"><i class="fas fa-home"></i></span>
                 <div class="media-body">
                     <h3>{{developer.address}}</h3>
                     <p>Hamro address hai yo</p>
@@ -106,7 +105,7 @@
                 </div>
             </div>
             <div class="media contact-info">
-                <span class="contact-info__icon"><i class="ti-tablet"></i></span>
+                <span class="contact-info__icon"><i class="fas fa-mobile"></i></span>
                 <div class="media-body">
                     <h3>{{developer.phone_number}}</h3>
                     <p>This phone number can directly contact us</p>
@@ -114,7 +113,7 @@
             </div>
           </div>
           <div class="media contact-info">
-              <span class="contact-info__icon"><i class="ti-email"></i></span>
+              <span class="contact-info__icon"><i class="fas fa-envelope"></i></span>
               <div class="media-body">
                   <h3>
                       [{{developer.email}}
