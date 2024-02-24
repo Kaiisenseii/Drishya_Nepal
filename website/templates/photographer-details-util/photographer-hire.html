@@ -45,7 +45,7 @@
                                 <select name="service" class="form-control mb-2" required id="service">
                                   <option value="" > ----Select Service---- </option>
                                   {% for service  in services %}
-                                  <option value="{{service.id}}" > {{service.name}}- Rs. {{service.price}} - {{service.duration}}  </option>
+                                  <option value="{{service.id}}" > {{service.name}}- Rs. {{service.price}} - {{service.duration}} days  </option>
                                   {% endfor %}
                                 </select>
                               </div>

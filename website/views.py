@@ -6,7 +6,7 @@ from service_provider.models import Photographer, Photo, Equipment, Services, Ta
 from management.models import Hire, Testimonial
 from management.forms import HireForm
 from client.models import Customer, Feedback
-from .forms import ServiceForm, ContactForm
+from .forms import ServiceForm, ContactForm, PhotographerPhotoForm
 from Authentication.models import Chat, DrishyaNepalUser
 from django.contrib.auth.decorators import login_required
 from Authentication.forms import ChatForm
@@ -198,6 +198,15 @@ def photographer_details_update(request, id):
             photographer.tags.add(tag)
             photographer.save()
             return redirect("photographer-update", photographer.id)
+        
+        if "photographer_photo_add" in request.POST:
+            print(request.POST, request.FILES)
+            form = PhotographerPhotoForm(request.POST, request.FILES)
+            if form.is_valid():
+                form.save()
+                return redirect("photographer-update", photographer.id)
+            else:
+                print(form.errors)
             
             
     equipment_form = EquipmentForm()
