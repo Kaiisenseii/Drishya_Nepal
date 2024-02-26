@@ -14,4 +14,5 @@ urlpatterns = [
     path('dashboard-edit', views.dashboard_edit, name="dashboard-edit"),
     path('hires', views.hires, name="hires"),
     path('chat/<int:from_user>/<int:to_user>', views.chat, name="chat"),
+    path('notification', views.notification, name="notification"),
 ]

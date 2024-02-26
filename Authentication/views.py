@@ -6,9 +6,7 @@ from django.contrib.auth import login
 from service_provider.models import Photographer
 # Create your views here.
 def login_user(request):
-    
-    
-    
+
     if request.user.is_authenticated:
         return redirect('index')
     if request.method == "POST":
@@ -21,7 +19,9 @@ def login_user(request):
             login(request=request, user=user)
             if "next" in request.GET:
                 return redirect(request.GET['next'])
-            return redirect("index")       
+            return redirect("index")
+        else:
+            messages.error(request=request, message='Invalid Email or Password')     
     return render(request, 'login.html')
 
 def logout_user(request):

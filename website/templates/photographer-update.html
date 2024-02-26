@@ -79,7 +79,7 @@
                             <input
                                   class="form-control"
                                   name="date"
-                                  id="photo.date_taken"
+                                  id="date_taken"
                                   type="date"
                                   placeholder="Choose Date"
                                   required
@@ -122,9 +122,9 @@
                 <img class="img-fluid" src="{{ image.photo.url }}" />
               </a>
               <br>
-              <button type="button" class="btn btn-primary btn-sm d-block mx-auto" style="width: 100%; padding: 0.75rem 1rem;" data-toggle="modal" data-target="#photodelete">Delete Photo</button>
+              <button type="button" class="btn btn-primary btn-sm d-block mx-auto" style="width: 100%; padding: 0.75rem 1rem;" data-toggle="modal" data-target="#photodelete{{image.id}}">Delete Photo</button>
               <!-- Modal -->
-              <div class="modal fade" id="photodelete" tabindex="-1" role="dialog" aria-labelledby="photodelete" aria-hidden="true">
+              <div class="modal fade" id="photodelete{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="photodelete" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -132,11 +132,13 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      Are you  sure to delete this photo?
+                      Are you  sure to delete this {{image.name}} photo?
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                      <a href="{% url "photo_remove" image.id %}">
                       <button type="button" class="btn btn-primary btn-sm">Confirm</button>
+                      </a>
                     </div>
                   </div>
                 </div>

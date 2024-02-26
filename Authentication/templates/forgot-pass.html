@@ -19,10 +19,17 @@
 					{% csrf_token %}
                   
 					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Email</span>
-						<input class="input100" type="text" name="username" required placeholder="Enter your registered email ">
+						<span class="label-input100">Enter New Password</span>
+						<input class="input100" type="text" name="password" required placeholder="Enter New Password">
 						<span class="focus-input100"></span>
 					</div>
+
+					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
+						<span class="label-input100">Confirm Your Password </span>
+						<input class="input100" type="text" name="password" required placeholder="Confirm Your Password">
+						<span class="focus-input100"></span>
+					</div>
+
 
 					
           <div class="container-login100-form-btn-group">

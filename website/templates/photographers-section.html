@@ -21,14 +21,12 @@
                 {% for tag in photographer.tags.all|slice:":3" %}
                 <span class="colors1"> {{tag}} </span>
                 {% endfor %}
-
-                
                 <h5>
                   <a href="{% url "photographer-detail" photographer.id %}"
-                    >{{photographer.user.get_full_name}}</a
+                    style="color: #007AFF;">{{photographer.user.get_full_name}}</a
                   >
                 </h5>
-                <ul>
+                <ul>  
                   <li>
                     <p><i class="fas fa-map-marker-alt"></i>{{photographer.user.address}}</p>
                   </li>
@@ -63,6 +61,4 @@
         </div>
     </div>
 
-
-    
   </section>

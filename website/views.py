@@ -69,6 +69,7 @@ def photographer_details(request, id):
         form = HireForm(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('hires')
             #send messages for success
         else:
             #send message to fornt end with errors
@@ -341,3 +342,5 @@ def hires(request):
     }
     return render(request, 'hires.html', context)
 
+def notification(request):
+    return render(request, "notification.html")
