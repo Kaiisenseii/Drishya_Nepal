@@ -16,3 +16,12 @@ body{
     background-color: #e5f7f0;
     border-color: #d8f7eb;
 }
+.osahan-post-header {
+    position: relative;
+  }
+  
+  .dropdown-container {
+    position: absolute;
+    top: 1;
+    right: 0;
+  }
