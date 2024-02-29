@@ -7,36 +7,30 @@
   <div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
-				<div class="login100-form-title" style="background-image: url(images/bg-01.jpg);">
+				<div class="login100-form-title" style="background-image: url({% static "images/bg-01.jpg" %});">
 					<span class="login100-form-title-1">
-						Password Reset
+						Forgot Password 
             <br>
             <a href = {% url "index" %}><img  width = "500px" src ="{% static "img/logo/logo.png" %}"></a>
 					</span>
 				</div>
-
+                {% include "message.html" %}
 				<form class="login100-form validate-form" method="POST">
 					{% csrf_token %}
-                  
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Enter New Password</span>
-						<input class="input100" type="text" name="password" required placeholder="Enter New Password">
-						<span class="focus-input100"></span>
-					</div>
 
-					<div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
-						<span class="label-input100">Confirm Your Password </span>
-						<input class="input100" type="text" name="password" required placeholder="Confirm Your Password">
+                    <div class="wrap-input100 validate-input m-b-26" data-validate="Email is required">
+						<span class="label-input100">Email</span>
+						<input class="input100" type="email" name="email" required placeholder="Enter Your Email">
 						<span class="focus-input100"></span>
-					</div>
+					</div>	
 
 
 					
           <div class="container-login100-form-btn-group">
 					<div class="container-login100-form-btn">
-						<button type="submit" class="login100-form-btn">
-							Submit
-						</button>
+                            <button type="submit" class="login100-form-btn">
+                                Submit
+                            </button>
 					</div>
           
         </div>

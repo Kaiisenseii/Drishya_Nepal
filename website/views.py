@@ -13,6 +13,8 @@ from Authentication.forms import ChatForm
 from django.db.models import Q
 # Create your views here.
 from client.forms import FeedBackForm
+from django.http.response import JsonResponse
+
 
 def home(request):
     info = Information.objects.first()
@@ -20,16 +22,24 @@ def home(request):
     photos = Photo.objects.all()
     abouts = About.objects.all()
     testimonials = Testimonial.objects.all()
-
+    # unique set of photographer.user.address
+    addresses = set([p.user.address for p in photographers])
+    
     context = {
         'info' : info,
         'photographers' : photographers,
         'photos' : photos,
         'abouts' : abouts,
         'testimonials' :  testimonials,
+        'addresses' : addresses,
+
     }
     return render(request, 'index.html' , context)
 
+def rest_pg(request):
+    photographers = Photographer.objects.all().values()
+    return JsonResponse({'photographers' : list(photographers)})
+    
 
 
 def photographers(request):
@@ -56,7 +66,7 @@ def photographers(request):
         'search_text' : search_text,
         'addresses' : addresses,
         'location' : location,
-       
+
     }
     return render(request, 'photographers.html' , context)
 
@@ -126,12 +136,14 @@ def photographer_details_update(request, id):
         tag = Tag.objects.get(id=request.GET.get('addtag'))
         photographer.tags.add(tag)
         photographer.save()
+        messages.success(request=request, message='Tags added successfully!')
         return redirect("photographer-update", photographer.id)
     
     if "deletetag" in request.GET:
         tag = Tag.objects.get(id=request.GET.get('deletetag'))
         photographer.tags.remove(tag)
         photographer.save()
+        messages.success(request=request, message='Service Deleted successfully!')
         return redirect("photographer-update", photographer.id)
 
     
@@ -141,6 +153,7 @@ def photographer_details_update(request, id):
             form = ServiceForm(request.POST)
             if form.is_valid():
                 form.save()
+                messages.success(request=request, message='Service added successfully!')
                 return redirect("photographer-update", photographer.id)
     
         if "update_service" in request.POST:
@@ -157,6 +170,7 @@ def photographer_details_update(request, id):
             service.description = description
             service.duration = duration
             service.save()
+            messages.success(request=request, message='Service updated successfully!')
             return redirect("photographer-update", photographer.id)
         
         if "equipment_add" in request.POST:
@@ -164,6 +178,7 @@ def photographer_details_update(request, id):
             form = EquipmentForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
+                messages.success(request=request, message='Equipment Added successfully')
                 return redirect("photographer-update", photographer.id)
             else:
                 print(form.errors)
@@ -171,15 +186,16 @@ def photographer_details_update(request, id):
         if "update_equipment" in request.POST:
             print(request.POST, request.FILES)
             photographer = Photographer.objects.get(id=request.POST.get('photographer'))
-            equipment = Equipment.objects.get(id=request.POST.FILES.get('equipment'))
+            equipment = Equipment.objects.get(id=request.POST.get('equipment'))
             name = request.POST['name']
             description = request.POST['description']
-            photo = request.POST.FILES['photo']
+            photo = request.FILES['photo']
             
             equipment.name = name
             equipment.description = description
             equipment.photo = photo
             equipment.save()
+            messages.success(request=request, message='Equipment updated successfully!')
             return redirect("photographer-update", photographer.id)
             
         if "update_profile_pic" in request.POST:
@@ -188,6 +204,7 @@ def photographer_details_update(request, id):
             profile_pic = request.FILES['profile_pic']
             photographer.user.profile_pic = profile_pic
             photographer.save()
+            messages.success(request=request, message='Profile Picture updated successfully!')
             return redirect("photographer-update", photographer.id)
             
             
@@ -198,6 +215,7 @@ def photographer_details_update(request, id):
             tag= Tag.objects.get(name=name)
             photographer.tags.add(tag)
             photographer.save()
+            messages.success(request=request, message='Tags added successfully!')
             return redirect("photographer-update", photographer.id)
         
         if "photographer_photo_add" in request.POST:
@@ -205,8 +223,10 @@ def photographer_details_update(request, id):
             form = PhotographerPhotoForm(request.POST, request.FILES)
             if form.is_valid():
                 form.save()
+                messages.success(request=request, message='Photo added successfully!')
                 return redirect("photographer-update", photographer.id)
             else:
+                messages.success(request=request, message='Photo doesnot added')
                 print(form.errors)
             
             
@@ -236,8 +256,10 @@ def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            messages.success(request=request, message='Thanks for contacting us. We will reach you soon.')
             form.save()
+            messages.success(request=request, message='Thanks for contacting us. We will reach you soon.')
+        else:
+            messages.error(request=request,message=('Contact Failed. Please Check Your Credentials Below or Wrong Message is typed!!'))
         return redirect("contact")
     return render(request, 'contact.html', context)
 
@@ -258,6 +280,7 @@ def dashboard_edit(request):
             profile_pic = request.FILES['profile_pic_edit']
             user.profile_pic = profile_pic
             user.save()
+            messages.success(request=request, message='Profile Picture Updated Successfully')
             return redirect("dashboard")
 
     if user.is_photographer:
@@ -274,6 +297,7 @@ def dashboard_edit(request):
                 photographer.experience = request.POST['e_xperience']
                 user.save()
                 photographer.save()
+                messages.success(request=request, message='Details Updated Successfully')
                 return redirect("dashboard")
     else:
         if request.method == "POST":
@@ -284,6 +308,7 @@ def dashboard_edit(request):
                 user.address = request.POST['location']
                 user.email = request.POST['e_mail']
                 user.save()
+                messages.success(request=request, message='Details Updated Successfully')
                 return redirect("dashboard")
     return render (request, "dashboard-edit.html")
 
@@ -328,6 +353,7 @@ def hires(request):
                 messages.success(request=request,  message="Feedback Sent Successfully")
                 return redirect('hires')
             else:
+                messages.error(request=request,  message="Feedback Sent Unsuccessful")
                 print(feedback.errors)
     
     if request.user.is_customer:

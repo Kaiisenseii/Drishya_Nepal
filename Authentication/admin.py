@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
+from .models import Otp
 
+admin.site.register(Otp)
 
 # Register your models here.
 from .models import DrishyaNepalUser, Chat

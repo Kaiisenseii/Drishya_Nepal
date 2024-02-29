@@ -13,10 +13,9 @@
       </div>
     </div>
   </div>
-
+  {% include "message.html" %}
   <section class="contact-section">
     <div class="container">
-      {% include "message.html" %}
       <div class="row">
         <div class="col-12">
           <h2 class="contact-title">Get in Touch</h2>
@@ -68,7 +67,9 @@
                     type="email"
                     onfocus="this.placeholder = ''"
                     onblur="this.placeholder = 'Enter email address'"
-                    placeholder="Email"
+                    placeholder="Enter Your Valid Email"
+                    data-validate="Valid Email is required"
+                    required
                   />
                 </div>
               </div>

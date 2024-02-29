@@ -24,3 +24,23 @@ class Chat(models.Model):
     
     def __str__(self):
         return "From " + str(self.from_user.get_full_name()) + "To " + str(self.to_user.get_full_name())
+
+class Notification(models.Model):
+    '''This is a class where when hired notification is sent to respective user'''
+    message = models.CharField(max_length = 254)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_seen = models.BooleanField(default = False)
+    user = models.ManyToManyField(DrishyaNepalUser,related_name = "users")
+    
+    def __str__(self):
+        return str(self.message)
+
+class Otp(models.Model):
+    '''This is used to send OTPs'''
+    user = models.ForeignKey(DrishyaNepalUser, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add = True)
+    otp = models.IntegerField()
+    
+     
+    def __str__(self):
+        return str(self.user.email) + " - "+ str(self.otp)

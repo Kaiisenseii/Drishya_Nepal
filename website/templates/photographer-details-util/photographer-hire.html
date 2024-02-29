@@ -13,12 +13,15 @@
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                   Hire Now
                 </button>
+                {% elif  user.is_photographer %}
+                
                 {% else %}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-primary" >
                   <a href = {% url "login" %} >
                   Hire Now
                 </button>
               </a>
+              
                 {% endif %}
 
                 
