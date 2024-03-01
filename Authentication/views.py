@@ -7,6 +7,7 @@ from service_provider.models import Photographer
 import random
 import smtplib
 from email.mime.text import MIMEText
+import time
 
 def send_email(subject, body, recipient):
     sender = "drishyanepal.2024@gmail.com"
@@ -212,6 +213,14 @@ def otp(request):
 def register_otp(request):
     if request.method == "POST":
         otp = request.POST.get("otp")
+        if 'otp_timestamp' in request.session:
+            if time.time() - request.session['otp_timestamp'] > 10:
+                del request.session['otp']
+                del request.session['user']
+                del request.session['otp_timestamp']
+                messages.error(request=request, message="OTP expired. Please request a new OTP.")
+                return redirect("register-otp")
+
         otp_obj = Otp.objects.filter(otp=otp).order_by('created_at')
         if not otp_obj.exists():
             messages.error(request=request, message="OTP don't match.")
@@ -220,5 +229,6 @@ def register_otp(request):
             user = otp_obj.first().user
             login(request=request, user=user)
             messages.success(request=request, message="Welcome to Drishya Nepal.")
+            request.session['otp_timestamp'] = time.time()
             return redirect('/')
     return render(request, "register-otp.html")

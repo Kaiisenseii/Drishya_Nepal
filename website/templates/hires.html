@@ -55,13 +55,13 @@
                 <p>Hired at {{hire.date}} </p>
 
                 <div class="row">
-                  <a href="{% url "chat" user.id hire.photographer.id %}" class="m-1 col-md-5 btn btn-primary float-left">
+                  <a href="{% url "chat" user.id hire.photographer.id %}" class="m-1 col-md-6 btn btn-primary float-left">
                     Message
                   </a>
                   
                     <!-- Button trigger modal -->
                   {% if hire.has_feedback %}
-                  <button type="button" class="btn-danger col-md-6 m-1" disabled>
+                  <button type="button" class="btn-danger col-md-5 m-1" disabled>
                     Reviewed
                     </button>
                   {% else %}
@@ -84,15 +84,18 @@
                  <form method='POST'>   
                   {% csrf_token %}
                   <select class="form-control w-100" name="rating">
-                    <option value="1" selected>1 star</option>
-                    <option value="2" >2 star</option>
-                    <option value='3' >3 star</option>
-                    <option value="4" >4 star</option>
-                    <option value="5">5 star</option>
-                  </select>            
+                    <option value=" " style="text-align: 'center'">-----  Select to give feedback -----</option>
+                    <option value="1">&#11088;&#9734;&#9734;&#9734;&#9734; Hated It</option>
+                    <option value="2" >&#11088;&#11088;&#9734;&#9734;&#9734; Disliked It</option>
+                    <option value='3'>&#11088;&#11088;&#11088;&#9734;&#9734; It was Ok</option>
+                    <option value="4">&#11088;&#11088;&#11088;&#11088;&#9734;  Liked It</option>
+                    <option value="5">&#11088;&#11088;&#11088;&#11088;&#11088; Loved It</option>
+                  </select> 
+                  <br>           
                   <input type="hidden" name="customer" value="{{user.id}}" />
                   <input type="hidden" name="photographer" value="{{hire.photographer.photographer.id}}" />
-                  <textarea rows="6" cols="30" name="message" class="form-control"></textarea><br/>
+                  <br>
+                  <textarea rows="6" cols="30" name="message" class="form-control" placeholder="Enter any comments for {{hire.photographer.get_full_name}}"></textarea><br/>
                
           
       </div>
