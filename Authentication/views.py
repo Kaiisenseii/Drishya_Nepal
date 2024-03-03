@@ -169,7 +169,6 @@ def password_confirm(request, user_id):
             confirm_password = request.POST['confirm_password']
 
             if new_password == confirm_password:
-                user = request.user
                 user.set_password(new_password)
                 user.save()
                 return redirect('login')
