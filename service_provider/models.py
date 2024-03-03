@@ -10,13 +10,22 @@ class Tag(models.Model):
     
     def __str__(self):
         return str(self.name)
+    
+    
 class Photographer(models.Model):
     '''
     This class is for photographer details
     '''
+    STATUS_CHOICES = (
+        ('Available', 'Available'), 
+        ('Booked', 'Booked'), 
+        ("Not Available", 'Not Available'), 
+        ('Busy', 'Busy')
+    )
     user = models.OneToOneField(DrishyaNepalUser, on_delete=models.CASCADE, related_name="photographer")
     experience = models.CharField(max_length = 254)
     tags = models.ManyToManyField(Tag)
+    status = models.CharField(max_length=254, choices=STATUS_CHOICES)
     is_available = models.BooleanField(default = True)
     is_videographer = models.BooleanField(default=False)
  

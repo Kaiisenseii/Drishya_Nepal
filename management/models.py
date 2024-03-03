@@ -30,7 +30,7 @@ class Hire(models.Model):
     description = models.CharField(max_length = 200)
     
     def has_feedback(self):
-        feedback = Feedback.objects.all().filter(customer=self.customer, photographer=self.photographer.photographer)
+        feedback = Feedback.objects.all().filter(customer=self.customer, photographer=self.photographer.photographer, hire=self)
         if feedback.exists():
             return True
         else:

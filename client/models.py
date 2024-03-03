@@ -29,7 +29,8 @@ class Feedback(models.Model):
     message = models.CharField(max_length= 200)
     rating = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
-    
+    hire = models.ForeignKey("management.Hire",on_delete = models.CASCADE, null=True,)
+
     def __str__(self):
         return str(self.message)
     

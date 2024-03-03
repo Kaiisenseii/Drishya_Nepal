@@ -335,6 +335,7 @@ def dashboard_edit(request):
                 user.address = request.POST['location']
                 user.email = request.POST['e_mail']
                 photographer.experience = request.POST['e_xperience']
+                
                 user.save()
                 photographer.save()
                 messages.success(request=request, message='Details Updated Successfully')
@@ -387,7 +388,6 @@ def hires(request):
     if request.method == "POST":
         if "rate" in request.POST:
             feedback = FeedBackForm(request.POST)
-            print(request.POST)
             if feedback.is_valid():
                 feedback.save()
                 messages.success(request=request,  message="Feedback Sent Successfully")
