@@ -10,4 +10,6 @@ urlpatterns = [
     path('pass-reset', views.password_reset, name='pass-reset'),
     path('otp', views.otp, name='otp'),
     path('register-otp', views.register_otp, name='register-otp'),
+    path('notifications/delete/<int:notification_id>/', views.delete_notification, name='delete_notification'),
+
 ]

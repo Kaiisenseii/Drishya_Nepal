@@ -1,13 +1,31 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .models import DrishyaNepalUser, Otp
+from .models import DrishyaNepalUser, Otp, Notification
 from django.contrib.auth import login
 from service_provider.models import Photographer
 import random
 import smtplib
 from email.mime.text import MIMEText
 import time
+
+
+def send_notification( user, message):
+    notification = Notification.objects.create(user=user, message=message)
+    notification.save()
+
+
+def delete_notification(request, notification_id):
+    # Retrieve the notification, ensuring it belongs to the current user
+    notification = get_object_or_404(Notification, id=notification_id, user=request.user)
+    
+    # Delete the notification
+    notification.delete()
+    messages.success(request=request, message="Notification deleted successfully.")
+    # Redirect to a page (e.g., list of notifications)
+    return redirect('notification')  # Adjust 'notifications_list' to your actual URL name for the notifications list page
+
+
 
 def send_email(subject, body, recipient):
     sender = "drishyanepal.2024@gmail.com"

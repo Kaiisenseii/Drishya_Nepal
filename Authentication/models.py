@@ -30,7 +30,7 @@ class Notification(models.Model):
     message = models.CharField(max_length = 254)
     created_at = models.DateTimeField(auto_now_add=True)
     is_seen = models.BooleanField(default = False)
-    user = models.ManyToManyField(DrishyaNepalUser,related_name = "users")
+    user = models.ForeignKey(DrishyaNepalUser,on_delete=models.CASCADE)
     
     def __str__(self):
         return str(self.message)

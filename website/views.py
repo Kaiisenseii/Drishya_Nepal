@@ -7,7 +7,7 @@ from management.models import Hire, Testimonial
 from management.forms import HireForm
 from client.models import Customer, Feedback
 from .forms import ServiceForm, ContactForm, PhotographerPhotoForm
-from Authentication.models import Chat, DrishyaNepalUser
+from Authentication.models import Chat, DrishyaNepalUser, Notification
 from django.contrib.auth.decorators import login_required
 from Authentication.forms import ChatForm
 from django.db.models import Q
@@ -15,6 +15,8 @@ from django.db.models import Q
 from client.forms import FeedBackForm
 from django.http.response import JsonResponse
 from django.db.models import Avg, Count
+from Authentication.views import send_notification
+
 
 def recommend_photographers():
     # Annotate each photographer with their average rating and count of feedbacks
@@ -111,10 +113,12 @@ def photographer_details(request, id):
     
     #for hire photgrapher
     if request.method == "POST" and "hire_form" in request.POST :
-        print(request.POST)
         form = HireForm(request.POST)
         if form.is_valid():
-            form.save()
+            hire = form.save()
+            #send notififcation
+            photographer = hire.photographer
+            send_notification(user=photographer, message="You are hired by. {0}. Please view your hires page".format(hire.customer))
             return redirect('hires')
             #send messages for success
         else:
@@ -405,4 +409,7 @@ def hires(request):
     return render(request, 'hires.html', context)
 
 def notification(request):
-    return render(request, "notification.html")
+
+    return render(request, "notification.html", {'notifications': Notification.objects.filter(user=request.user)})
+
+
