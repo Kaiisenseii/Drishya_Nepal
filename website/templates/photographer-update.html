@@ -1,0 +1,165 @@
+{% extends "base.html" %} {% load static %} {% block body %}
+<link rel="stylesheet" href="{% static 'css/lightbox.css' %}" />
+<main>
+  <div class="slider-area">
+    <div class="slider-height2 slider-bg2 d-flex align-items-end">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="hero__caption hero__caption2">
+              <h2>{{photographer.user.get_full_name}}</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% include "message.html" %}
+
+  <section class="blog_area single-post-area section-padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="row">
+            <div class="col-12">
+              <div class="single-post">
+                <div class="feature-img">
+                  <img
+                  class="img-fluid"
+                  src="{{photographer.user.profile_pic.url}}"
+                  alt
+                />
+                
+                </div>
+                <br>
+                {% include "photographer-update-util/tages-update.html" %}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 posts-list">
+          <!-- Include the other widgets here -->
+          {% include "photographer-update-util/service-add.html" %}
+          <br>
+          {% include "photographer-update-util/equipment-add.html" %}
+          <br>
+          
+          <br>
+        </div>
+        
+        <aside class="single_sidebar_widget instagram_feeds">
+          <h2 class="widget_title" style="color: #2d2d2d; text-align: center; width: 100%; ">
+            Some clicks of {{photographer.user.get_full_name}}
+          </h2>
+          <div class="input-group-append d-flex">
+            
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addphotographerphotos">
+              Add Photo
+            </button>
+              
+            <!-- Modal -->
+            <div class="modal fade" id="addphotographerphotos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Photos</h5>
+                    
+                  </div>
+                  <div class="modal-body">
+                    <form method="POST" enctype="multipart/form-data">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input name="photographer" value="{{photographer.id}}" type="hidden">
+                        <input class="form-control w-100" name="name" id="photo_name" type="text"
+                            placeholder="Enter Name of your Photo" required><br>
+                            <input class="form-control w-100" name="location" id="photo_location" type="text"
+                            placeholder="Enter Location where you clicked" required><br>
+                            <input class="form-control w-100" name="type" id="photo_type" type="text"
+                            placeholder="Enter Type of Photo" required><br>
+                            <input
+                                  class="form-control"
+                                  name="date"
+                                  id="date_taken"
+                                  type="date"
+                                  placeholder="Choose Date"
+                                  required
+                                /><br />
+                            
+                        
+                        <textarea class="form-control w-100" name="description" id="photo_description" cols="30"
+                            rows="9" placeholder="Enter description for Respective Photo"
+                            required></textarea>
+                    </div>
+                          <input
+                      class="form-control w-100"
+                      name="photo"
+                      id="photographer_photos"
+                      type="file"
+                      accept="media/"
+                      placeholder=""
+                      required
+                  >
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" name="photographer_photo_add">Add Photo</button>
+                  </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+
+          <div class="instagram_row row">
+            {% for image in photos %}
+            <div class="col-6 col-md-4 col-lg-3">
+              <a
+                href="{{ image.photo.url }}"
+                data-lightbox="models"
+                data-title="Name:{{image.name}} - Location: {{image.location}} - Description: {{image.description}} - Taken at: {{image.date_taken}}"
+              >
+                <img class="img-fluid" src="{{ image.photo.url }}" />
+              </a>
+              <br>
+              <button type="button" class="btn btn-primary btn-sm d-block mx-auto" style="width: 100%; padding: 0.75rem 1rem;" data-toggle="modal" data-target="#photodelete{{image.id}}">Delete Photo</button>
+              <!-- Modal -->
+              <div class="modal fade" id="photodelete{{image.id}}" tabindex="-1" role="dialog" aria-labelledby="photodelete" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Delete Photo</h5>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      Are you  sure to delete this {{image.name}} photo?
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                      <a href="{% url "photo_remove" image.id %}">
+                      <button type="button" class="btn btn-primary btn-sm">Confirm</button>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            {% endfor %}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
+<script>
+  $(document).ready(function () 
+    {
+  });
+</script>
+
+
+
+{% endblock body %}

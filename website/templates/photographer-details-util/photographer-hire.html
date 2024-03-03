@@ -1,0 +1,116 @@
+{%load static%}
+
+<div class="col-lg">
+    <div class="blog_right_sidebar">
+      <aside class="single_sidebar_widget search_widget">
+        
+          <div class="form-group m-0">
+            <div class="input-group">
+         
+              <div class="input-group-append d-flex">
+                <!-- Button trigger modal -->
+                {% if user.is_customer %}
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Hire Now
+                </button>
+                {% elif  user.is_photographer %}
+                
+                {% else %}
+                <button type="button" class="btn btn-primary" >
+                  <a href = {% url "login" %} >
+                  Hire Now
+                </button>
+              </a>
+              
+                {% endif %}
+
+                
+                {% if is_owner %}
+                <button type="button" class="btn btn-primary">
+                  <a href = "{% url "photographer-update" photographer.id %}">Update your details</a>  
+                </button>
+                {% endif %}
+              
+                
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Hire {{photographer.user.get_full_name}}</h5>
+                        
+                        </button>
+                      </div>
+                      
+                      <div class="modal-body">
+                        <form method="POST" action="#">
+                          <input name="status" value="Pending" type="hidden">
+                          {% csrf_token %}
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="form-group">
+                                <select name="service" class="form-control mb-2" required id="service">
+                                  <option value="" > ----Select Service---- </option>
+                                  {% for service  in services %}
+                                  <option value="{{service.id}}" > {{service.name}}- Rs. {{service.price}} - {{service.duration}} days  </option>
+                                  {% endfor %}
+                                </select>
+                              </div>
+                            </div>
+
+
+
+                            <div class="col-12">
+                              <div class="form-group">
+                                <select name="location" class="form-control mb-2" required>
+                                  <option value="Kathmandu" > Kathmandu </option>
+                                  <option value="Pokhara" > Pokhara </option>
+                                  <option value="Biratnagar" > Biratnagar </option>
+                                  <option value="Bhaktapur" > Bhaktapur </option>
+                                  <option value="Lalitpur" > Lalitpur </option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-group">
+                                <input
+                                  class="form-control"
+                                  name="date"
+                                  id="date"
+                                  type="date"
+                                  placeholder="Choose Date"
+                                  required
+                                />
+                                <input type="hidden" name="photographer" value="{{photographer.user.id}}">
+                                <input type="hidden" name="customer" value="{{user.id}}">
+                              </div>
+                            </div>
+                            <div class="col-12">
+                              <div class="form-group">
+                                <textarea
+                                  class="form-control w-100"
+                                  name="description"
+                                  id="description"
+                                  cols="30"
+                                  rows="9"
+                                  placeholder="Note"
+                                  required
+                                ></textarea>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-success" name="hire_form">Hire</button>
+                      </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+      </aside>

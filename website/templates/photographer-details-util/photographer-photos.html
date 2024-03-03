@@ -1,0 +1,18 @@
+{% load static%}
+<link rel="stylesheet" href ="{% static 'css/lightbox.css' %}">
+<aside class="single_sidebar_widget instagram_feeds">
+    <h4 class="widget_title" style="color: #2d2d2d">
+      Some clicks of {{photographer.user.get_full_name}}
+    </h4>
+    <ul class="instagram_row flex-wrap">
+        {% for image in photos  %}
+      <li>
+        <a href="{{ image.photo.url }}" data-lightbox = "models" data-title = "Name: {{image.name}} - Location: {{image.location}} - Description: {{image.description}} - Taken at: {{image.date_taken}}">
+            <img class="img-fluid" src="{{ image.photo.url }}" > 
+          </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </aside>
+
+  <script src="{% static 'js/lightbox-plus-jquery.js' %}"></script>
