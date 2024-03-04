@@ -10,16 +10,21 @@
               <div class="input-group-append d-flex">
                 <!-- Button trigger modal -->
                 {% if user.is_customer %}
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  Hire Now
-                </button>
+                {% if photographer.status == "Available" or photographer.status == "Booked" %}
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Hire Now
+              </button>
+               {% endif %}
                 {% elif  user.is_photographer %}
                 
                 {% else %}
+                {% if photographer.status == "Available" %}
                 <button type="button" class="btn btn-primary" >
                   <a href = {% url "login" %} >
-                  Hire Now
+                 Login to Hire Now
                 </button>
+                {% endif %}
+             
               </a>
               
                 {% endif %}

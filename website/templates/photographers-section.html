@@ -14,11 +14,19 @@
     </div>
     <div class="container">
         <div class="row">
+          
             {% for photographer in photographers %}
         <div class="col-lg-4 col-md-6 col-sm-6">
+          
             <div class="single-cat mb-30">
+              
               <div class="cat-cap" >
-
+                <div
+                class="photographer-status {% with photographer.status|lower as status_lower %}{{ status_lower }}{% endwith %}"
+                style="color: {% if photographer.status == 'Available' %}green{% elif photographer.status == 'Not Available' %}red{% elif photographer.status == 'Busy' %}red{% else %}orange{% endif %}; text-align: right;"
+              >
+                {{ photographer.status }}
+              </div>
                 {% for tag in photographer.tags.all|slice:":3" %}
                 <span class="colors1"> {{tag}} </span>
                 {% endfor %}
@@ -27,8 +35,9 @@
                   <a href="{% url "photographer-detail" photographer.id %}"
                     style="color: #007AFF;">{{photographer.user.get_full_name}}</a
                   >
+                  
                 </h5>
-                <div class="photographer-status {{ photographer.status|lower }}">{{ photographer.status }}</div>
+                
                 
                 <ul>  
                   <li>
@@ -57,8 +66,12 @@
                     </p>
                     
                   </div>
-                  <span class="time">{{photographer.get_avg_rating_html | safe }} </span>
+                  <span class="time">{{photographer.get_avg_rating_html | safe }} 
+                    
+                  </span>
+                  
                 </div>
+                
               </div>
             </div>
           </div>
@@ -75,7 +88,12 @@
       <div class="col-lg-4 col-md-6 col-sm-6">
           <div class="single-cat mb-30">
             <div class="cat-cap">
-
+              <div
+                class="photographer-status {% with photographer.status|lower as status_lower %}{{ status_lower }}{% endwith %}"
+                style="color: {% if photographer.status == 'Available' %}green{% elif photographer.status == 'Not Available' %}red{% elif photographer.status == 'Busy' %}red{% else %}orange{% endif %}; text-align: right;"
+              >
+                {{ photographer.status }}
+              </div>
               {% for tag in photographer.tags.all|slice:":3" %}
               <span class="colors1"> {{tag}} </span>
               {% endfor %}
@@ -109,7 +127,9 @@
                       {% endif %}
                   </p>
                 </div>
-                <span class="time">{{photographer.get_avg_rating_html | safe }} </span>
+                <span class="time">{{photographer.get_avg_rating_html | safe }} 
+                  
+                </span>
               </div>
             </div>
           </div>

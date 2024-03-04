@@ -26,7 +26,7 @@
         <section class="blog_area single-post-area section-padding">
           <div class="container">
             <div class="single-post">
-              <div class="photographer-status {{ photographer.status|lower }}">{{ photographer.status }}</div>
+              <h5>Current Status: </h5> <div class="photographer-status {{ photographer.status|lower }}">{{ photographer.status }}</div>
               <div class="feature-img">
                 <img class="img-fluid" src="{{photographer.user.profile_pic.url}}" alt />
               </div>

@@ -4,11 +4,11 @@
 .photographer-status.available {
     color: green !important;
   }
-  
-.photographer-status.not-available {
+
+.photographer-status.not{
     color: red !important;
   }
-  
+
 .photographer-status.booked {
     color: orange !important;
   }

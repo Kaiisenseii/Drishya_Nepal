@@ -88,7 +88,7 @@ form {
     color: green;
   }
   
-.photographer-status.not-available {
+.photographer-status.not {
     color: rgb(255, 0, 0) !important;
   }
   
