@@ -44,3 +44,4 @@ class Otp(models.Model):
      
     def __str__(self):
         return str(self.user.email) + " - "+ str(self.otp)
+    

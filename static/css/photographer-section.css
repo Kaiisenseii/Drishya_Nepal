@@ -1,0 +1,17 @@
+.photographer-status {
+    text-align: right;
+  }
+.photographer-status.available {
+    color: green !important;
+  }
+  
+.photographer-status.not-available {
+    color: red !important;
+  }
+  
+.photographer-status.booked {
+    color: orange !important;
+  }
+.photographer-status.busy {
+    color: red !important;
+  }

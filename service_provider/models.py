@@ -17,6 +17,7 @@ class Photographer(models.Model):
     This class is for photographer details
     '''
     STATUS_CHOICES = (
+        ('', '---Select Your Current Status---'),
         ('Available', 'Available'), 
         ('Booked', 'Booked'), 
         ("Not Available", 'Not Available'), 
@@ -28,7 +29,7 @@ class Photographer(models.Model):
     status = models.CharField(max_length=254, choices=STATUS_CHOICES)
     is_available = models.BooleanField(default = True)
     is_videographer = models.BooleanField(default=False)
- 
+
     
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)

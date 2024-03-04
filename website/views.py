@@ -163,6 +163,8 @@ def about(request):
 def photographer_details_update(request, id):
     
     photographer= Photographer.objects.get(id=id)
+    status_choices = Photographer.STATUS_CHOICES
+    
     
     if request.user.is_authenticated:
         user = DrishyaNepalUser.objects.get(id=request.user.id)
@@ -268,6 +270,19 @@ def photographer_details_update(request, id):
             else:
                 messages.success(request=request, message='Photo doesnot added')
                 print(form.errors)
+        
+        if "status" in request.POST:  # change status of the user
+            status = request.POST['status']
+            
+            if status == '':
+                status = photographer.status
+            photographer.status = status
+            photographer.save()
+            messages.success(request=request, message='Status updated successfully!')
+            return redirect("photographer-update", photographer.id)
+            
+
+        
             
             
     equipment_form = EquipmentForm()
@@ -277,12 +292,15 @@ def photographer_details_update(request, id):
     photos = Photo.objects.all().filter(photographer=photographer)
     tags = Tag.objects.all()
     context = {
+        
         "photographer" : photographer, 
         "services" : services,
         'equipments' : equipments, 
         'photos' : photos,
         'equipment_form' : equipment_form,
         'tags' : tags,
+        'status_choices' : status_choices,
+        
     }
     
     return render(request, 'photographer-update.html', context)

@@ -1,0 +1,100 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .update-status {
+    position: relative;
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  .update-status label {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding: 0.25rem 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fff;
+    pointer-events: none;
+    border-radius: 0.25rem;
+    transition: all 0.1s ease-in;
+  }
+  
+  .update-status input[type="text"],
+  .update-status select {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .update-status input[type="text"]:focus,
+  .update-status select:focus {
+    outline: none;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+  
+  .btn {
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  }
+  
+  .btn-primary {
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-primary:hover {
+    color: #fff;
+    background-color: #0069d9;
+    border-color: #0062cc;
+  }
+  
+  .btn-primary:focus {
+    color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf;
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+  }
+
+  .photographer-status {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .photographer-status.available {
+    color: green;
+  }
+  
+  .photographer-status.not-available {
+    color: red;
+  }
+  
+  .photographer-status.booked {
+    color: orange;
+  }
+  .photographer-status.busy {
+    color : red;
+  }
