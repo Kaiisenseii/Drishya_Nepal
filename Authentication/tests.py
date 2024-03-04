@@ -87,3 +87,41 @@ class LogoutViewTests(TestCase):
         self.assertRedirects(response, '/')  # Adjust to the correct URL for your login page
         # Check if the user is no longer authenticated
         self.assertFalse(response.wsgi_request.user.is_authenticated)
+
+
+
+class AdminLoginTests(TestCase):
+    def setUp(self):
+        # Create an admin user
+        self.admin_user = DrishyaNepalUser.objects.create_superuser('admin', 'admin@example.com', 'adminpass')
+
+    def test_valid_admin_login(self):
+        response = self.client.post(reverse('admin:login'), {'username': 'admin', 'password': 'adminpass'}, follow=True)
+        self.assertTrue(response.context['user'].is_authenticated)
+        self.assertRedirects(response, reverse('admin:index'))
+
+    def test_invalid_admin_login(self):
+        response = self.client.post(reverse('admin:login'), {'username': 'admin', 'password': 'wrongpass'})
+        self.assertIn("Please enter the correct username and password for a staff account", response.content.decode())
+
+
+class CustomerLoginTests(TestCase):
+    def setUp(self):
+        self.customer = DrishyaNepalUser.objects.create_user(username='customer', email='customer@example.com', password='customerpass')
+
+    def test_valid_customer_login(self):
+        response = self.client.post(reverse('login'), {'username': 'customer@example.com', 'password': 'customerpass'}, follow=True)
+        self.assertTrue(response.context['user'].is_authenticated)
+        self.assertRedirects(response, reverse('index'))  
+
+    def test_invalid_customer_login(self):
+        response = self.client.post(reverse('login'), {'username': 'customer@example.com', 'password': 'wrongpass'})
+        self.assertIn("Email or password is incorrect", response.content.decode())
+
+    def test_valid_email_invalid_password(self):
+        response = self.client.post(reverse('login'), {'username': 'customer@example.com', 'password': 'wrong'}, follow=True)
+        self.assertIn("Email or password is incorrect", response.content.decode())
+
+    def test_invalid_email_valid_password(self):
+        response = self.client.post(reverse('login'), {'username': 'wrong@example.com', 'password': 'customerpass'}, follow=True)
+        self.assertIn("Email or password is incorrect", response.content.decode())
