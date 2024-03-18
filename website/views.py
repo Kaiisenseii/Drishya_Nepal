@@ -3,7 +3,7 @@ from django.contrib import messages
 from service_provider.forms import EquipmentForm, PhotoForm
 from .models import Information, Developer, About
 from service_provider.models import Photographer, Photo, Equipment, Services, Tag
-from management.models import Hire
+from management.models import Hire, Testimonial
 from management.forms import HireForm
 from client.models import Customer, Feedback
 from .forms import ServiceForm, ContactForm
@@ -12,14 +12,15 @@ from django.contrib.auth.decorators import login_required
 from Authentication.forms import ChatForm
 from django.db.models import Q
 # Create your views here.
+from client.forms import FeedBackForm
 
 def home(request):
     info = Information.objects.first()
     developers = Developer.objects.all()
-    photographers = Photographer.objects.all()
+    photographers = Photographer.objects.all()[:3]
     photos = Photo.objects.all()
     abouts = About.objects.all()
-    
+    testimonials = Testimonial.objects.all()
 
     context = {
         'info' : info,
@@ -27,6 +28,7 @@ def home(request):
         'photographers' : photographers,
         'photos' : photos,
         'abouts' : abouts,
+        'testimonials' :  testimonials,
        
     }
     return render(request, 'index.html' , context)
@@ -34,12 +36,29 @@ def home(request):
 
 
 def photographers(request):
+    search_text = ""
+    location = ""
     photographers = Photographer.objects.all()
     photos = Photo.objects.all()
+    
+    # unique set of photographer.user.address
+    addresses = set([p.user.address for p in photographers])
+    
+    if request.GET.get('search'):
+        search_text = request.GET.get('search')
+        photographers = Photographer.objects.filter(Q(user__first_name__icontains=search_text) | Q(user__address__icontains=search_text))
+        
+    if request.GET.get('select'):
+        location = request.GET.get('select')
+        photographers = [p for p in photographers if p.user.address == location]
+        
 
     context = {
         'photographers' : photographers,
         'photos' : photos,
+        'search_text' : search_text,
+        'addresses' : addresses,
+        'location' : location,
        
     }
     return render(request, 'photographers.html' , context)
@@ -295,14 +314,24 @@ def chat(request, from_user, to_user):
     return render(request, "chat.html", context)
 
 def hires(request):
-    print(request.user.is_photographer)
+    if request.method == "POST":
+        if "rate" in request.POST:
+            feedback = FeedBackForm(request.POST)
+            print(request.POST)
+            if feedback.is_valid():
+                feedback.save()
+                messages.success(request=request,  message="Feedback Sent Successfully")
+                return redirect('hires')
+            else:
+                print(feedback.errors)
+    
     if request.user.is_customer:
         hires = Hire.objects.all().filter(customer=request.user)
-        print(hires)
     if request.user.is_photographer:
         print(request.user)
         hires = Hire.objects.all().filter(photographer=request.user)
-        # print(hires)
+    
+  
     context = {
         'hires': hires
     }

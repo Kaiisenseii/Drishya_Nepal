@@ -86,8 +86,12 @@ a {
 
 .card-container{
   display: flex;
-  border: 2px solid red;
+  max-width: 30%;
+  
 }
 .card-container >.card{
-  border: 2px solid blue;
+
+  margin: 0 !important;
+  width: 100% !important;
 }
+

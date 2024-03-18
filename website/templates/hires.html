@@ -1,165 +1,149 @@
 {% extends "base.html"%}
 {% load static%}
 {% block body%}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"  crossorigin="anonymous">
 <link rel="stylesheet" href="{% static 'css/chat-hires.css' %}">
 <div class="container rounded bg-white mt-5 mb-5">
-    <div class="row" style="flex-wrap: nowrap">
+  <div class="row" style="flex-wrap: nowrap">
 
-        <div class="col-md-3 border-right">
+    <div class="col-md-3 border-right">
 
-            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
-                    width="150px" src="{{user.profile_pic.url}}"><span
-                    class="font-weight-bold">{{user.get_full_name}}</span><span
-                    class="text-black-50">{{user.email}}</span><span> </span></div>
-            {% if user.is_photographer %}
-            <div class="mt-1 text-center">
-                <div class="mt-1 text-center">
-                    <a href="{% url "photographer-update" user.photographer.id %}"
-                        class="btn btn-primary profile-button">Photographer details</a>
-                </div>
-            </div>
-            {%endif%}
-
-            {% if user.is_authenticated %}
-            <div class="mt-1 text-center">
-                <a href="{% url "dashboard-edit"%}" class="btn btn-primary profile-button">Update Details</a>
-            </div>
-            <div class="mt-1 text-center">
-                <a href="{% url "hires"%}" class="btn btn-primary profile-button">My Hires</a>
-            </div>
+      <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5"
+          width="150px" src="{{user.profile_pic.url}}"><span class="font-weight-bold">{{user.get_full_name}}</span><span
+          class="text-black-50">{{user.email}}</span><span> </span></div>
+      {% if user.is_photographer %}
+      <div class="mt-1 text-center">
+        <div class="mt-1 text-center">
+          <a href="{% url "photographer-update" user.photographer.id %}"
+            class="btn btn-primary profile-button">Photographer details</a>
         </div>
-        <div>
-            <div>
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Hires of {{user.get_full_name}}</h4>
-                </div>
-                    <hr style="color: black;">
-                <div class="row mt-2 card-container">
-                {% for hire in hires %}
-                
-                    {% if request.user.is_customer %}
-                    <div class="col-md-12">
-                        <div class="card shadow-1 ">
-                            <div class="card-header">
-                                <h3 class="text-primary">Details of Hires
-                                </h3>
-                            </div>
-                            <div class="card-body">
-                                    <img src="{{hire.photographer.profile_pic.url}}" alt="{{hire.photographer.get_full_name}}" style="width:50%">
-                                    <h1>{{hire.photographer.get_full_name}}</h1>
-                                    <p>{{hire.photographer.email}}</p>
-                                    <p>{{hire.photographer.phone}}</p>
-                                    <p>{{hire.service}}</p>
-                                    <p>Hired at {{hire.date}} </p>
+      </div>
+      {%endif%}
 
-                                <a href="{% url "chat" user.id hire.photographer.id %}" class="btn-success-sm float-left">
-                                    <img src = "{% static "img/icon/chat-icon.png" %}" style="width:30px">
-                                </a>
-                                <span type="button" class="btn-success-sm" data-toggle="modal" data-target="#exampleModalCenter">
-                                  <img src = "{% static "img/icon/feedback.png" %}" style="width:30px">
-                                </span>
-                                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                      <div class="modal-content">
-                                        <div class="modal-header">
-                                          <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                          </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="container-wrapper">  
-                                                <div class="container1 d-flex align-items-center justify-content-center">
-                                                  <div class="row justify-content-center">    
-                                                    
-                                                    <!-- star rating -->
-                                                    <div class="rating-wrapper">
-                                                      
-                                                      <!-- star 5 -->
-                                                      <input type="radio" id="5-star-rating" name="star-rating" value="5">
-                                                      <label for="5-star-rating" class="star-rating">
-                                                        <i class="fas fa-star d-inline-block"></i>
-                                                      </label>
-                                                      
-                                                       <!-- star 4 -->
-                                                      <input type="radio" id="4-star-rating" name="star-rating" value="4">
-                                                      <label for="4-star-rating" class="star-rating star">
-                                                        <i class="fas fa-star d-inline-block"></i>
-                                                      </label>
-                                                      
-                                                       <!-- star 3 -->
-                                                      <input type="radio" id="3-star-rating" name="star-rating" value="3">
-                                                      <label for="3-star-rating" class="star-rating star">
-                                                        <i class="fas fa-star d-inline-block"></i>
-                                                      </label>
-                                                      
-                                                      <!-- star 2 -->
-                                                      <input type="radio" id="2-star-rating" name="star-rating" value="2">
-                                                      <label for="2-star-rating" class="star-rating star">
-                                                        <i class="fas fa-star d-inline-block"></i>
-                                                      </label>
-                                                      
-                                                      <!-- star 1 -->
-                                                      <input type="radio" id="1-star-rating" name="star-rating" value="1">
-                                                      <label for="1-star-rating" class="star-rating star">
-                                                        <i class="fas fa-star d-inline-block"></i>
-                                                      </label>
-                                                      
-                                                     </div>
-                                                    
-                                                  </div>
-                                                </div>
-                                              </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                          <button type="button" class="btn btn-primary">Save changes</button>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% else %}
-                    
-                    <div class="col-md-12">
-                        <div class="card shadow-1">
-                            <div class="card-header">
-                                <h3 class="text-primary">Details of Hires</h3>
-                            </div>
-                            <div class="card-body">
-          
-
-                                <ul>
-                                <li>Id: {{hire.customer.id}} </li>
-                                <li>Full Name: {{hire.customer.get_full_name}} </li>
-                                <li> Hired Date: {{hire.date}}
-                                <li> Contact: {{hire.customer.phone}}</li>
-                                <li> Email: {{hire.customer.email}}</li>
-                                <li>Service: {{hire.service}}</li>
-
-                                <ul>
-                                <a href="{% url "chat" user.id hire.customer.id %}" class="btn btn-success ">
-                                    CHAT
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
-                {% endfor %}
-                </div>
-    
-    
-            
-            </div>
-        </div>
-        {% endif %}
+      {% if user.is_authenticated %}
+      <div class="mt-1 text-center">
+        <a href="{% url "dashboard-edit"%}" class="btn btn-primary profile-button">Update Details</a>
+      </div>
+      <div class="mt-1 text-center">
+        <a href="{% url "hires"%}" class="btn btn-primary profile-button">My Hires</a>
+      </div>
     </div>
+    <div>
+      <div class="mt-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h4 class="text-right">Hires of {{user.get_full_name}}</h4>
+        </div>
+        <hr style="color: black;">
+        {% include "message.html" %}
+        <div class="row mt-2" style="gap: 50px;">
+          {% for hire in hires %}
 
-    
+          {% if request.user.is_customer %}
+          <div class="col-md-12 card-container">
+            <div class="card shadow-1 ">
+              <div class="card-header">
+                <h3 class="text-primary">Details of Hires
+                </h3>
+              </div>
+              <div class="card-body">
+                <img src="{{hire.photographer.profile_pic.url}}" alt="{{hire.photographer.get_full_name}}"
+                  style="width:50%; height:150px;">
+                <h1>{{hire.photographer.get_full_name}}</h1>
+                <p>{{hire.photographer.email}}</p>
+                <p>{{hire.photographer.phone}}</p>
+                <p>{{hire.service}}</p>
+                <p>Hired at {{hire.date}} </p>
+
+                <div class="row">
+                  <a href="{% url "chat" user.id hire.photographer.id %}" class="m-1 col-md-5 btn btn-primary float-left">
+                    Message
+                  </a>
+                  
+                    <!-- Button trigger modal -->
+                  {% if hire.has_feedback %}
+                  <button type="button" class="btn-danger col-md-6 m-1" disabled>
+                    Reviewed
+                    </button>
+                  {% else %}
+                  
+                  <button type="button" class="btn col-md-5 m-1" data-toggle="modal" data-target="#reviewModel{{hire.id}}">
+                    Review
+                    </button>
+                    {% endif %}
+                  </div>
+<!-- Modal -->
+<div class="modal fade" id="reviewModel{{hire.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">{{hire.photographer.get_full_name}}</h5>
+      
+        </button>
+      </div>
+      <div class="modal-body">
+                 <form method='POST'>   
+                  {% csrf_token %}
+                  <select class="form-control w-100" name="rating">
+                    <option value="1" selected>1 star</option>
+                    <option value="2" >2 star</option>
+                    <option value='3' >3 star</option>
+                    <option value="4" >4 star</option>
+                    <option value="5">5 star</option>
+                  </select>            
+                  <input type="hidden" name="customer" value="{{user.id}}" />
+                  <input type="hidden" name="photographer" value="{{hire.photographer.photographer.id}}" />
+                  <textarea rows="6" cols="30" name="message" class="form-control"></textarea><br/>
+               
+          
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary" name="rate">Save changes</button>
+      </form>
+      </div>
+    </div>
+  </div>
 </div>
+              </div>
+            </div>
+          </div>
+          {% else %}
+
+          <div style="max-width: 35%;">
+            <div class="card shadow-1">
+              <div class="card-header">
+                <h3 class="text-primary">Details of Hires</h3>
+              </div>
+              <div class="card-body">
+
+
+
+                <img class="rounded-circle" src="{{hire.customer.profile_pic.url}}"
+                  alt="{{hire.customer.get_full_name}}" style="width:50%;border-radius:50%; height: 200px">
+                <h1>{{hire.customer.get_full_name}}</h1>
+                <p>{{hire.customer.email}}</p>
+                <p>{{hire.customer.phone}}</p>
+                <p>{{hire.service}}</p>
+                <p>Hired at {{hire.date}} </p>
+                <a href="{% url "chat" user.id hire.customer.id %}" class="btn btn-success ">
+                  CHAT
+                </a>
+
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+
+
+
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+
 </div>
-</div>
-</div>
+
 {%endblock body%}

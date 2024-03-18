@@ -10,8 +10,8 @@
     <ul class="instagram_row flex-wrap">
         {% for image in photos  %}
       <li>
-        <a href="{{ image.photo.url }}" data-lightbox = "models" data-title = "{{image.description}}">
-            <img class="img-fluid" src="{{ image.photo.url }}" > 
+        <a href="{{image.photo.url}}" data-lightbox = "models" data-title = "{{image.description}}">
+            <img class="img-fluid" src="{{image.photo.url}}" > 
           </a>
 
       </li>

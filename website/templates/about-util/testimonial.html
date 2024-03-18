@@ -1,0 +1,35 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/testimonial.css" %}">
+<div class="container">
+	<div class="row">
+		<div class="col-md-8 col-center m-auto">
+			<h2>Our Supporters</h2>
+			<div id="myCarousel" class="carousel slide" data-ride="carousel">
+				<!-- Carousel -->
+				<div class="carousel-inner">
+					{% for testimonial in testimonials %}
+					{% if forloop.first %}
+					<div class="item carousel-item active">
+						{% else %}
+						<div class="item carousel-item">
+						{% endif %}
+						<div class="img-box"><img src="{{testimonial.logo.url}}" alt=""></div>
+						<p class="testimonial">{{testimonial.description}}</p>
+						<p class="overview"><b>{{testimonial.name}}</b></p>
+					</div>
+					{% endfor %}
+					
+				</div>
+				<!-- Carousel Controls -->
+				<a class="carousel-control left carousel-control-prev" href="#myCarousel" data-slide="prev">
+					<i class="fa fa-angle-left"></i>
+				</a>
+				<a class="carousel-control right carousel-control-next" href="#myCarousel" data-slide="next">
+					<i class="fa fa-angle-right"></i>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>                                		
